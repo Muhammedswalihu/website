@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta
     name="description"
-    content="SeekSense is an API for training-free semantic navigation. Let robots find things by name in unfamiliar spaces without site-specific training."
+    content="Seek is an API for training-free semantic navigation. Let robots find things by name in unfamiliar spaces without site-specific training."
   />
   <link rel="icon" href="/favicon.ico" />
   <style>
@@ -738,7 +738,7 @@
   <div id="successMessage" class="success-message">
     <div class="success-icon">✓</div>
     <h2 class="success-title">Thank you for joining the waitlist!</h2>
-    <p class="success-text">We'll be in touch when SeekSense is ready.</p>
+    <p class="success-text">We'll be in touch when Seek is ready.</p>
     <button class="btn btn-ghost" onclick="showHome()">Back to home</button>
   </div>
 
@@ -774,10 +774,10 @@
             for the physical world.
           </h1>
           <p class="hero-subtitle">
-            SeekSense is an API that lets robots find things by name in unfamiliar
+            Seek is an API that lets robots find things by name in unfamiliar environments
             spaces – without per-site training or custom detectors. Describe the
             target in natural language; the system scores what the robot sees,
-            builds a semantic map, and suggests where to go next.
+            builds a semantic map and suggests where to go next.
           </p>
           <div class="hero-ctas">
             <button class="btn btn-primary" onclick="handleWaitlistClick()">Join early access</button>
@@ -887,9 +887,9 @@
 
         <div class="two-column">
           <div class="card">
-            <h3>What SeekSense does</h3>
+            <h3>What Seek does</h3>
             <p>
-              SeekSense brings together semantic understanding, mapping, and exploration
+              Seek brings together semantic understanding, mapping, and exploration
               into a single API. The system builds a language-conditioned view of the
               environment on the fly and suggests where to go next based on meaning,
               not just occupancy.
@@ -905,7 +905,7 @@
           <div class="card">
             <h3>Where it fits</h3>
             <p>
-              SeekSense drops into existing stacks as a semantic search layer. You keep
+              Seek drops into existing stacks as a semantic search layer. You keep
               your navigation, control, and safety logic; we provide "what to look for"
               and "where to go next".
             </p>
@@ -922,7 +922,7 @@
           <div class="card">
             <h3>Learning by doing</h3>
             <p>
-              We develop SeekSense in close collaboration with early users across
+              We develop Seek in close collaboration with early users across
               operations, robotics, and research. Each deployment feeds back into the
               product: better grading tools, clearer logs, and tighter interfaces.
             </p>
@@ -937,7 +937,7 @@
             <h3>Hardware-agnostic by design</h3>
             <p>
               Any platform that can localise and stream camera data can work with
-              SeekSense. The same API scales from classroom robots to production fleets.
+              Seek.
             </p>
             <ul>
               <li>AMRs and AGVs in logistics and healthcare.</li>
@@ -1025,7 +1025,7 @@ if result.found:
           <div class="card">
             <h3>What we build</h3>
             <p>
-              SeekSense turns advances in vision–language navigation into a straightforward
+              Seek turns advances in vision–language navigation into a straightforward
               service. You describe what you care about – "spill kit in bay 4", "equipment
               trolley for theatre 2", "scanner cart 3" – and Seek suggests where the robot
               should go and when it is close enough.
@@ -1043,7 +1043,7 @@ if result.found:
             <p>
               Perception has improved dramatically, but deployments still get stuck on
               environment-specific training loops, vendor-locked stacks, and slow
-              integrations at each new site. SeekSense makes "find-by-name" behaviour a
+              integrations at each new site. Seek makes "find-by-name" behaviour a
               shared capability rather than a one-off project.
             </p>
             <ul>
@@ -1084,7 +1084,7 @@ if result.found:
           <div class="card">
             <h3>How Seek works in practice</h3>
             <p>
-              A typical deployment streams camera frames and poses to SeekSense. The
+              A typical deployment streams camera frames and poses to Seek. The
               system aggregates those into a semantic map, selects promising frontiers,
               and returns waypoints and approach poses you can pass to your existing
               navigation stack.
@@ -1105,7 +1105,7 @@ if result.found:
           <div>
             <h2>Join the waitlist</h2>
             <p>
-              Get early access to SeekSense as we roll out support for more platforms and
+              Get early access to Seek as we roll out support for more platforms and
               environments. We'll share API keys, example integrations, and pilot
               opportunities as they become available.
             </p>
@@ -1136,11 +1136,11 @@ if result.found:
         <div class="faq-list">
           <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-question">
-              What is SeekSense?
+              What is Seek?
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              SeekSense is a semantic search API for robotics. It lets robots find objects and locations by name in environments they haven't been trained on, by combining vision–language models, mapping, and exploration under one interface.
+              Seek is a semantic search API for robotics. It lets robots find objects and locations by name in environments they haven't been trained on, by combining vision–language models, mapping, and exploration under one interface.
             </div>
           </div>
 
@@ -1170,7 +1170,7 @@ if result.found:
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              No. SeekSense is designed for training-free deployment. You provide the robot's observations and a language description of the target; the system handles semantic scoring and search.
+              No. Seek is designed for training-free deployment. You provide the robot's observations and a language description of the target; the system handles semantic scoring and search.
             </div>
           </div>
 
@@ -1186,11 +1186,11 @@ if result.found:
 
           <div class="faq-item" onclick="toggleFAQ(this)">
             <div class="faq-question">
-              Can I use SeekSense with my existing robot?
+              Can I use Seek with my existing robot?
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              Yes! SeekSense is hardware-agnostic and works with any robot that can provide pose estimation and camera data through our simple API.
+              Yes! Seek is hardware-agnostic and works with any robot that can provide pose estimation and camera data through our simple API.
             </div>
           </div>
         </div>
