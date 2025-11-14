@@ -488,7 +488,7 @@
       transform: rotate(180deg);
     }
 
-    /* WAITLIST / ALPHA PROGRAMME */
+    /* WAITLIST */
 
     .waitlist-box {
       margin-top: 20px;
@@ -514,38 +514,9 @@
       color: var(--text-soft);
     }
 
-    .waitlist-form {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 10px;
-    }
-
-    .waitlist-input {
-      flex: 1 1 160px;
-      min-width: 0;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.7);
-      padding: 9px 12px;
-      font-size: 13px;
-      background: rgba(15, 23, 42, 0.95);
-      color: #e5e7eb;
-    }
-
-    .waitlist-input::placeholder {
-      color: #6b7280;
-    }
-
     .waitlist-note {
       margin-top: 6px;
       font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .waitlist-criteria {
-      margin: 8px 0 10px;
-      padding-left: 18px;
-      font-size: 13px;
       color: var(--text-soft);
     }
 
@@ -574,19 +545,25 @@
       padding: 30px;
       border: 1px solid rgba(148, 163, 184, 0.3);
       box-shadow: var(--shadow-soft);
-      max-width: 400px;
+      max-width: 420px;
       width: 90%;
       text-align: left;
     }
 
     .modal-title {
       font-size: 20px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       color: var(--text-main);
     }
 
+    .modal-subtitle {
+      font-size: 13px;
+      color: var(--text-soft);
+      margin-bottom: 18px;
+    }
+
     .form-group {
-      margin-bottom: 15px;
+      margin-bottom: 12px;
       text-align: left;
     }
 
@@ -601,12 +578,14 @@
     .form-group select,
     .form-group textarea {
       width: 100%;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 8px;
       border: 1px solid rgba(148, 163, 184, 0.5);
       background: rgba(15, 23, 42, 0.8);
       color: var(--text-main);
       font-size: 14px;
+      font-family: inherit;
+      resize: vertical;
     }
 
     .form-group input:focus,
@@ -616,9 +595,10 @@
       border-color: var(--accent);
     }
 
-    .form-group textarea {
-      resize: vertical;
-      min-height: 80px;
+    .form-hint {
+      font-size: 11px;
+      color: var(--text-soft);
+      margin-bottom: 6px;
     }
 
     .success-message {
@@ -723,27 +703,50 @@
   </style>
 </head>
 <body>
-  <!-- Alpha Programme Modal -->
+  <!-- Waitlist / Alpha Modal -->
   <div id="waitlistModal" class="modal">
     <div class="modal-content">
-      <h2 class="modal-title">Apply to the SeekSense alpha programme</h2>
-      <p style="font-size:13px;color:var(--text-soft);margin-top:0;margin-bottom:16px;">
-        We&rsquo;re selecting 5&ndash;10 teams with mobile robots already running in real environments.
+      <h2 class="modal-title">Alpha programme – SeekSense</h2>
+      <p class="modal-subtitle">
+        We’re looking for 5–10 teams with real robots to co-develop training-free “find-by-name” behaviours.
+      </p>
+      <p class="form-hint">
+        Tell us a bit about your setup and what you want the robot to be able to find.
       </p>
       <form id="waitlistForm">
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <!-- First name: entry.1371940140 -->
+          <input type="text" id="firstName" name="entry.1371940140" required>
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <!-- Last name: entry.1136782564 -->
+          <input type="text" id="lastName" name="entry.1136782564" required>
+        </div>
+
+        <div class="form-group">
+          <label for="company">Company (optional)</label>
+          <!-- Company: entry.393044842 -->
+          <input type="text" id="company" name="entry.393044842">
+        </div>
+
         <div class="form-group">
           <label for="email">Email</label>
           <!-- Email: entry.1058877347 -->
           <input type="email" id="email" name="entry.1058877347" required>
         </div>
+
         <div class="form-group">
           <label for="robotPlatform">Robot platform</label>
           <!-- Robot Platform: entry.1736100006 -->
-          <input type="text" id="robotPlatform" name="entry.1736100006" required>
+          <input type="text" id="robotPlatform" name="entry.1736100006" placeholder="e.g. TurtleBot, Ridgeback, Spot" required>
         </div>
+
         <div class="form-group">
           <label for="environment">Environment</label>
-          <!-- Environment (radio question): entry.1902499423 -->
+          <!-- Environment: entry.1902499423 -->
           <select id="environment" name="entry.1902499423" required>
             <option value="" disabled selected>Select environment</option>
             <option value="Warehouse / depot">Warehouse / depot</option>
@@ -753,11 +756,13 @@
             <option value="Other">Other</option>
           </select>
         </div>
+
         <div class="form-group">
           <label for="searchTarget">What do you want the robot to be able to find?</label>
           <!-- What do you want the robot to be able to find?: entry.540267406 -->
-          <textarea id="searchTarget" name="entry.540267406" rows="3" required></textarea>
+          <textarea id="searchTarget" name="entry.540267406" rows="3" placeholder="e.g. cleaning cart for ward C, tote 18B, spill kit in bay 4" required></textarea>
         </div>
+
         <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
           Submit
         </button>
@@ -768,9 +773,9 @@
   <!-- Success Message -->
   <div id="successMessage" class="success-message">
     <div class="success-icon">✓</div>
-    <h2 class="success-title">Thanks &mdash; we&rsquo;ve got your alpha application</h2>
+    <h2 class="success-title">Thanks – you’re on the alpha list.</h2>
     <p class="success-text">
-      We&rsquo;ll review and get in touch if there&rsquo;s a fit for this cohort.
+      We’ll reach out about fit, timelines, and next steps for integrating SeekSense on your robot.
     </p>
     <button class="btn btn-ghost" onclick="showHome()">Back to home</button>
   </div>
@@ -789,7 +794,7 @@
           <a href="#seek">Seek</a>
           <a href="#foundations">Foundations</a>
           <a href="#about">About</a>
-          <a href="#" onclick="handleWaitlistClick()">Alpha programme</a>
+          <a href="#waitlist" onclick="handleWaitlistClick(); return false;">Alpha programme</a>
         </nav>
       </div>
     </header>
@@ -807,13 +812,13 @@
             for the physical world.
           </h1>
           <p class="hero-subtitle">
-            Seek is an API that lets robots find things by name in unfamiliar environments
-            spaces – without per-site training or custom detectors. Describe the
+            Seek is an API that lets robots find things by name in unfamiliar spaces
+            – without per-site training or custom detectors. Describe the
             target in natural language; the system scores what the robot sees,
             builds a semantic map and suggests where to go next.
           </p>
           <div class="hero-ctas">
-            <button class="btn btn-primary" onclick="handleWaitlistClick()">Apply to alpha programme</button>
+            <button class="btn btn-primary" onclick="handleWaitlistClick()">Apply to alpha</button>
             <a href="#seek" class="btn btn-ghost">Explore the API</a>
           </div>
           <p class="hero-footnote">
@@ -943,10 +948,10 @@
               and "where to go next".
             </p>
             <div class="pill-row">
-              <span class="pill">Warehouses & depots</span>
-              <span class="pill">Hospitals & labs</span>
-              <span class="pill">Campuses & offices</span>
-              <span class="pill">R&D platforms</span>
+              <span class="pill">Warehouses &amp; depots</span>
+              <span class="pill">Hospitals &amp; labs</span>
+              <span class="pill">Campuses &amp; offices</span>
+              <span class="pill">R&amp;D platforms</span>
             </div>
           </div>
         </div>
@@ -1132,28 +1137,32 @@ if result.found:
         </div>
       </section>
 
-      <!-- ALPHA PROGRAMME / WAITLIST -->
+      <!-- ALPHA / WAITLIST -->
       <section id="waitlist">
         <div class="waitlist-box">
           <div>
-            <h2>Alpha programme: 5–10 teams who want training-free &lsquo;find-by-name&rsquo; on their robot.</h2>
-            <ul class="waitlist-criteria">
+            <h2>Alpha programme: 5–10 teams who want training-free “find-by-name” on their robot.</h2>
+            <p>
+              We’re selecting a small group of partners to run SeekSense in real environments
+              and help shape the product.
+            </p>
+            <ul>
               <li>Must have a mobile robot already moving in a real environment.</li>
               <li>Willing to jump on 1–2 calls to integrate.</li>
               <li>In warehouses, hospitals, labs, or campuses.</li>
             </ul>
             <p class="waitlist-note">
-              Tell us about your robot and environment. We&rsquo;ll use this to select a small group
-              of teams to work with closely.
+              We only email when there is something useful to share. No spam; unsubscribe
+              anytime.
             </p>
           </div>
           <div>
             <button class="btn btn-primary" onclick="handleWaitlistClick()" style="width: 100%;">
-              Apply to alpha programme
+              Apply to alpha
             </button>
             <p class="waitlist-note" style="margin-top: 10px;">
               Prefer email? Contact us at
-              <a href="mailto:team@seeksense-ai.com">Team@seeksense-ai.com</a>.
+              <a href="mailto:team@seeksense-ai.com">team@seeksense-ai.com</a>.
             </p>
           </div>
         </div>
@@ -1183,7 +1192,7 @@ if result.found:
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              We’re rolling out access gradually. Apply to the alpha programme to be first in line for the developer preview, example integrations, and our early adopter programme.
+              We're rolling out access gradually. Join the alpha programme to be first in line for the developer preview, example integrations, and our early adopter track.
             </div>
           </div>
 
@@ -1213,7 +1222,7 @@ if result.found:
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              We offer flexible pricing based on usage. Contact us for enterprise pricing and early adopter discounts.
+              We’re working with alpha partners on flexible, usage-based pricing. Early teams will get discounted access in exchange for feedback and shared learnings.
             </div>
           </div>
 
@@ -1223,7 +1232,7 @@ if result.found:
               <span class="faq-icon">▼</span>
             </div>
             <div class="faq-answer">
-              Yes! Seek is hardware-agnostic and works with any robot that can provide pose estimation and camera data through our simple API.
+              Yes. Seek is hardware-agnostic and works with any robot that can provide pose estimation and camera data through our simple API.
             </div>
           </div>
         </div>
@@ -1282,6 +1291,9 @@ if result.found:
     document.getElementById('waitlistForm').addEventListener('submit', function(e) {
       e.preventDefault();
       
+      // Get form data
+      const formData = new FormData(this);
+      
       // Create hidden iframe for submission
       const iframe = document.createElement('iframe');
       iframe.style.display = 'none';
@@ -1290,7 +1302,6 @@ if result.found:
       
       // Set form target to iframe and submit to Google Forms
       this.target = 'hidden-iframe';
-      // Same underlying Form ID as in your view-source
       this.action = 'https://docs.google.com/forms/d/e/1FAIpQLSeP9EEfbAa-5YU9fZ1zuXspEBylLUEwtLiNQyZ3LioGhrLmfA/formResponse';
       this.submit();
       
@@ -1300,7 +1311,9 @@ if result.found:
         showSuccess();
         // Remove iframe after submission
         setTimeout(() => {
-          document.body.removeChild(iframe);
+          if (document.body.contains(iframe)) {
+            document.body.removeChild(iframe);
+          }
         }, 1000);
       }, 1000);
       
