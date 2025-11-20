@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta
     name="description"
-    content="SeekSense gives robots a natural way to find things in the real world using language, not just coordinates."
+    content="Seek gives robots a natural way to find things in the real world using language, not just coordinates."
   />
   <!-- Favicon --> <link rel="icon" href="/seeksense-logo.png">
   <!-- Favicon -->
@@ -156,7 +156,7 @@
       <div class="text-5xl mb-4">✓</div>
       <h2 class="text-2xl font-semibold mb-3">Thanks – you’re on the alpha list.</h2>
       <p class="text-sm text-slate-300 mb-6">
-        We’ll reach out about fit, timelines, and next steps for integrating SeekSense on your robot.
+        We’ll reach out about fit, timelines, and next steps for integrating Seek on your robot.
       </p>
       <button
         type="button"
@@ -235,7 +235,7 @@
               Intuitive visual search for robots
             </h1>
             <p class="text-base leading-relaxed text-slate-700">
-              SeekSense is a training-free semantic navigation layer for robots.
+              Seek is a training-free semantic navigation layer for robots.
               Give it a simple phrase – “blue trolley in bay 4”, “visitor kiosk in atrium B” –
               and it guides your robot through real buildings as if it has worked there for years.
             </p>
@@ -281,7 +281,7 @@
 . :.  .  ..  .:.
  -...:...::  :..
 ..:  .  .:.  ....
-[ 200 OK ]  SeekSense
+[ 200 OK ]  Seek
 </pre>
               <p># semantic-search session</p>
               <p>
@@ -348,14 +348,14 @@
           </h2>
           <p class="mt-3 text-base max-w-2xl text-slate-700">
             Instead of “go to coordinate X”, ask your robot to “go find that thing”
-            – and let SeekSense handle the rest.
+            – and let Seek handle the rest.
           </p>
 
           <!-- Dynamic mode description -->
           <div class="mt-6 max-w-xl text-sm">
             <h3 id="modeTitle" class="font-medium text-slate-900 mb-1">Search</h3>
             <p id="modeDescription" class="text-slate-700">
-              Point the robot at a simple phrase like “blue trolley in bay 4” and let SeekSense decide where
+              Point the robot at a simple phrase like “blue trolley in bay 4” and let Seek decide where
               to look first, next, and when it’s close enough to stop.
             </p>
           </div>
@@ -371,7 +371,7 @@
               Search that feels natural to humans, reliable for robots
             </h2>
             <p class="mt-3 text-base max-w-2xl text-slate-700">
-              SeekSense gives robots a sense of what they’re looking for, where it might be,
+              Seek gives robots a sense of what they’re looking for, where it might be,
               and when they’re close enough — all from a simple phrase.
             </p>
           </div>
@@ -386,7 +386,7 @@
             <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
               <h3 class="font-medium text-slate-900">Remembers where it has looked</h3>
               <p class="text-slate-700">
-                SeekSense keeps track of what the robot has already seen, so it doesn’t keep
+                Seek keeps track of what the robot has already seen, so it doesn’t keep
                 circling the same empty corner when there are better places to check.
               </p>
             </article>
@@ -410,7 +410,7 @@
               Add “find-by-name” in a single loop
             </h2>
             <p class="text-base text-slate-700">
-              SeekSense plugs into the stack you already have. You keep SLAM, planning, and safety.
+              Seek plugs into the stack you already have. You keep SLAM, planning, and safety.
               We provide the search behaviour and high-level goals.
             </p>
             <p class="text-sm text-slate-500">
@@ -430,7 +430,7 @@
               <span>[ API ]</span>
             </div>
 <pre class="text-xs font-mono overflow-auto">
-from seeksense import Seek
+from seek import Seek
 
 seek = Seek(api_key="ss-YOUR_API_KEY")
 
@@ -441,7 +441,7 @@ session = seek.search_start(
     frame=rgbd.latest_frame(),
 )
 
-# Ask SeekSense where to look next
+# Ask Seek where to look next
 while not session.done:
     waypoint = seek.search_next(session.id)
     nav.go_to(waypoint)
@@ -453,7 +453,7 @@ while not session.done:
         frame=rgbd.latest_frame(),
     )
 
-# When SeekSense confirms the target
+# When Seek confirms the target
 result = seek.search_verify(session.id)
 if result.found:
     nav.go_to(result.approach_pose)
@@ -470,10 +470,10 @@ if result.found:
             Drop into the stack you already run
           </h2>
           <p class="text-base max-w-2xl text-slate-700">
-            SeekSense fits alongside your existing tools instead of replacing them.
+            Seek fits alongside your existing tools instead of replacing them.
           </p>
           <ul class="grid gap-3 md:grid-cols-2 text-sm mt-4 text-slate-700">
-            <li>• Use SeekSense waypoints as goals for your existing planners.</li>
+            <li>• Use Seek waypoints as goals for your existing planners.</li>
             <li>• Prototype everything in simulation before touching real hardware.</li>
             <li>• Export search runs as traces for debugging, demos, and reports.</li>
             <li>• Hook logs into your current observability and monitoring stack.</li>
@@ -490,8 +490,8 @@ if result.found:
               Built for dynamic environments, not static maps
             </h2>
             <p class="mt-3 text-base max-w-2xl text-slate-700">
-              SeekSense is designed around the messy reality of real buildings:
-              things move, people rearrange spaces, and robots arrive after everything has changed.
+              Seek is designed around the messy reality of real buildings:
+              Things move, people rearrange spaces, and robots arrive after everything has changed.
             </p>
           </div>
           <div class="grid gap-6 md:grid-cols-3 text-sm">
@@ -499,13 +499,13 @@ if result.found:
               <h3 class="font-medium text-slate-900">Training-free by default</h3>
               <p class="text-slate-700">
                 No per-site retraining just to make “find the trolley” work.
-                SeekSense aims to generalise across locations from day one.
+                Seek aims to generalise across locations from day one.
               </p>
             </article>
             <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
               <h3 class="font-medium text-slate-900">Platform-agnostic</h3>
               <p class="text-slate-700">
-                Any platform that can localise and stream a camera feed can use SeekSense —
+                Any platform that can localise and stream a camera feed can use Seek —
                 AMRs, mobile bases with arms, quadrupeds, and more.
               </p>
             </article>
@@ -530,7 +530,7 @@ if result.found:
             </h2>
             <p class="mt-3 text-base max-w-2xl text-slate-700">
               Instead of writing a new script every time you want a robot to “go and find X”,
-              you call SeekSense and reuse the same behaviour across fleets and sites.
+              you call Seek and reuse the same behaviour across fleets and sites.
             </p>
           </div>
           <div class="grid gap-6 md:grid-cols-2 text-sm">
@@ -549,7 +549,7 @@ if result.found:
             <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
               <h3 class="font-medium text-slate-900">Safe approach poses</h3>
               <p class="text-slate-700">
-                When a target is found, SeekSense proposes sensible stand-off distances for inspection,
+                When a target is found, Seek proposes sensible stand-off distances for inspection,
                 handover, or docking.
               </p>
             </article>
@@ -664,7 +664,7 @@ if result.found:
         <div class="max-w-6xl mx-auto px-4 space-y-6">
           <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Community //</p>
           <h2 class="text-2xl md:text-3xl font-semibold">
-            Early partners on SeekSense
+            Early partners on Seek
           </h2>
           <p class="text-base max-w-2xl text-slate-700">
             How teams are turning “go find X” into a repeatable behaviour instead of a one-off demo.
@@ -673,7 +673,7 @@ if result.found:
           <div class="grid gap-4 md:grid-cols-2 text-sm">
             <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
               <p class="text-slate-800">
-                “We dropped SeekSense in front of our existing stack and were running language-driven recovery
+                “We dropped Seek in front of our existing stack and were running language-driven recovery
                 runs in simulation in a weekend.”
               </p>
               <p class="text-slate-500 text-xs">Pilot partner – Warehouse robotics team</p>
@@ -698,7 +698,7 @@ if result.found:
               From “where is it?” to repeatable robot routines
             </h2>
             <p class="mt-3 text-base max-w-2xl text-slate-700">
-              A few ways teams use SeekSense in practice.
+              A few ways teams use Seek in practice.
             </p>
           </div>
           <div class="grid gap-6 md:grid-cols-2 text-sm">
@@ -741,7 +741,7 @@ if result.found:
             Alpha access for 5–10 teams
           </h2>
           <p class="text-base max-w-2xl text-slate-700">
-            We’re working closely with a small group of partners to prove SeekSense in demanding environments.
+            We’re working closely with a small group of partners to prove Seek in demanding environments.
             If you already have a robot moving in a real building, we’d love to talk.
           </p>
           <ul class="text-sm space-y-1 text-slate-700">
@@ -775,15 +775,15 @@ if result.found:
             Frequently asked questions
           </h2>
           <p class="text-base max-w-2xl text-slate-700">
-            Everything you need to know about how SeekSense fits into your robots and your stack.
+            Everything you need to know about how Seek fits into your robots and your stack.
           </p>
           <div class="space-y-4 text-sm max-w-3xl">
             <details class="border border-slate-200 rounded-md p-3 bg-white">
               <summary class="font-medium cursor-pointer text-slate-900">
-                What is SeekSense?
+                What is Seek?
               </summary>
               <p class="mt-2 text-slate-700">
-                SeekSense is a semantic navigation layer that lets robots find things in real buildings using
+                Seek is a semantic navigation layer that lets robots find things in real buildings using
                 natural language, not just coordinates.
               </p>
             </details>
@@ -792,7 +792,7 @@ if result.found:
                 Do we need to train it for each site?
               </summary>
               <p class="mt-2 text-slate-700">
-                No. SeekSense is designed to work across sites without per-environment training loops.
+                No. Seek is designed to work across sites without per-environment training loops.
                 You may tune some parameters for your platform and use case, but not retrain from scratch.
               </p>
             </details>
@@ -807,19 +807,19 @@ if result.found:
             </details>
             <details class="border border-slate-200 rounded-md p-3 bg-white">
               <summary class="font-medium cursor-pointer text-slate-900">
-                Does SeekSense replace our navigation stack?
+                Does Seek replace our navigation stack?
               </summary>
               <p class="mt-2 text-slate-700">
-                No. You keep navigation, control, and safety. SeekSense provides high-level search behaviour
+                No. You keep navigation, control, and safety. Seek provides high-level search behaviour
                 and goal suggestions that plug into your existing stack.
               </p>
             </details>
             <details class="border border-slate-200 rounded-md p-3 bg-white">
               <summary class="font-medium cursor-pointer text-slate-900">
-                Can SeekSense run on-prem?
+                Can Seek run on-prem?
               </summary>
               <p class="mt-2 text-slate-700">
-                During the alpha, SeekSense runs as a hosted API. For larger deployments we’re open to discussing
+                During the alpha, Seek runs as a hosted API. For larger deployments, we’re open to discussing
                 on-prem or VPC setups with partners.
               </p>
             </details>
