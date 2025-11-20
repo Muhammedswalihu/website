@@ -2,751 +2,116 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>SeekSense – Training-Free Semantic Search for Robots</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>SeekSense – Semantic Search for Robots</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta
     name="description"
-    content="Seek is an API for training-free semantic navigation. Let robots find things by name in unfamiliar spaces without site-specific training."
+    content="SeekSense gives robots a natural way to find things in the real world using language, not just coordinates."
   />
-  <!-- Favicons -->
-    <!-- Favicon -->
-  <link rel="icon" href="/seeksense-logo.png">
-
-
-  <style>
-    :root {
-      --bg: #050712;
-      --bg-alt: #0b0f1f;
-      --card: #111827;
-      --accent: #38bdf8;
-      --accent-soft: rgba(56, 189, 248, 0.12);
-      --accent-strong: #0ea5e9;
-      --text-main: #f9fafb;
-      --text-soft: #9ca3af;
-      --border-subtle: #1f2937;
-      --radius-lg: 18px;
-      --radius-xl: 24px;
-      --shadow-soft: 0 24px 60px rgba(15, 23, 42, 0.9);
-      --max-width: 1120px;
-    }
-
-    * {
-      box-sizing: border-box;
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-        "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617, #020617 28%, #020617),
-        radial-gradient(circle at 10% 10%, rgba(56, 189, 248, 0.16), transparent 60%),
-        radial-gradient(circle at 90% 15%, rgba(129, 140, 248, 0.16), transparent 65%),
-        #020617;
-      color: var(--text-main);
-      -webkit-font-smoothing: antialiased;
-    }
-
-    a {
-      color: inherit;
-      text-decoration: none;
-    }
-
-    main {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 32px 20px 72px;
-    }
-
-    /* NAVBAR */
-
-    .nav {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(16px);
-      background: linear-gradient(
-        to bottom,
-        rgba(15, 23, 42, 0.96),
-        rgba(15, 23, 42, 0.92),
-        transparent
-      );
-      border-bottom: 1px solid rgba(15, 23, 42, 0.8);
-    }
-
-    .nav-inner {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 12px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-    }
-
-    .logo {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      font-weight: 600;
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-      font-size: 12px;
-    }
-
-    .logo-mark {
-      width: 22px;
-      height: 22px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 25% 25%, #e5f9ff, #38bdf8 36%, #0f172a);
-      box-shadow: 0 0 0 1px rgba(148, 163, 184, 0.4),
-        0 0 40px rgba(56, 189, 248, 0.4);
-    }
-
-    .tagline-small {
-      font-size: 11px;
-      color: var(--text-soft);
-      text-transform: none;
-      letter-spacing: normal;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 18px;
-      font-size: 13px;
-      color: #cbd5f5;
-    }
-
-    .nav-links a {
-      opacity: 0.8;
-      padding: 6px 0;
-    }
-
-    .nav-links a:hover {
-      opacity: 1;
-    }
-
-    .nav-cta {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .btn {
-      border-radius: 999px;
-      font-size: 13px;
-      padding: 8px 16px;
-      border: 1px solid transparent;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      cursor: pointer;
-      background: none;
-      color: inherit;
-      text-decoration: none;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: linear-gradient(to right, var(--accent), var(--accent-strong));
-      color: #020617;
-      font-weight: 600;
-      box-shadow: 0 18px 40px rgba(8, 47, 73, 0.7);
-    }
-
-    .btn-primary:hover {
-      filter: brightness(1.02);
-      transform: translateY(-0.5px);
-    }
-
-    .btn-ghost {
-      border-color: rgba(148, 163, 184, 0.26);
-      background: rgba(15, 23, 42, 0.4);
-      color: #e5e7eb;
-    }
-
-    .btn-ghost:hover {
-      border-color: rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.7);
-    }
-
-    .chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      border-radius: 999px;
-      border: 1px solid rgba(148, 163, 184, 0.4);
-      padding: 3px 9px 3px 4px;
-      font-size: 11px;
-      color: var(--text-soft);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.24), transparent),
-        rgba(15, 23, 42, 0.9);
-    }
-
-    .chip-dot {
-      width: 14px;
-      height: 14px;
-      border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #e5f9ff, #22c55e 50%, #16a34a 70%);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.6),
-        0 0 20px rgba(34, 197, 94, 0.7);
-    }
-
-    /* HERO */
-
-    .hero {
-      padding-top: 40px;
-      padding-bottom: 40px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 40px;
-      align-items: center;
-    }
-
-    .hero-main-title {
-      font-size: clamp(30px, 5vw, 40px);
-      line-height: 1.1;
-      margin: 8px 0 12px;
-    }
-
-    .hero-main-title span.accent {
-      background: linear-gradient(to right, #e5f9ff, #38bdf8, #a5b4fc);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .hero-subtitle {
-      font-size: 14px;
-      max-width: 540px;
-      color: var(--text-soft);
-      line-height: 1.7;
-    }
-
-    .hero-ctas {
-      margin-top: 18px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .hero-footnote {
-      margin-top: 12px;
-      font-size: 12px;
-      color: var(--text-soft);
-    }
-
-    .hero-footnote span {
-      color: #e5e7eb;
-    }
-
-    .hero-panel {
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.3), transparent 50%),
-        radial-gradient(circle at 100% 0, rgba(129, 140, 248, 0.3), transparent 60%),
-        var(--card);
-      border-radius: var(--radius-xl);
-      padding: 18px 18px 16px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      box-shadow: var(--shadow-soft);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero-panel-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 10px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .hero-panel-title {
-      font-size: 12px;
-      font-weight: 500;
-      color: #e5e7eb;
-    }
-
-    .hero-panel-body {
-      background: radial-gradient(circle at 0 100%, rgba(56, 189, 248, 0.2), transparent),
-        rgba(15, 23, 42, 0.85);
-      border-radius: 14px;
-      padding: 12px 12px 10px;
-      border: 1px solid rgba(15, 23, 42, 0.8);
-      display: grid;
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-      gap: 12px;
-      align-items: start;
-    }
-
-    .code-block {
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
-        "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      background: radial-gradient(circle at 20% 0, rgba(56, 189, 248, 0.24), transparent),
-        #020617;
-      border-radius: 12px;
-      border: 1px solid rgba(30, 64, 175, 0.9);
-      padding: 10px 10px 9px;
-      color: #e5e7eb;
-      overflow-x: auto;
-    }
-
-    .code-comment {
-      color: #6b7280;
-    }
-
-    .code-key {
-      color: #7dd3fc;
-    }
-
-    .code-val {
-      color: #bef264;
-    }
-
-    .code-str {
-      color: #f97373;
-    }
-
-    .hero-map {
-      border-radius: 12px;
-      padding: 10px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.3), transparent),
-        radial-gradient(circle at 100% 100%, rgba(129, 140, 248, 0.28), transparent),
-        #020617;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    .heatmap {
-      margin-top: 8px;
-      display: grid;
-      grid-template-columns: repeat(6, 1fr);
-      gap: 4px;
-    }
-
-    .heat-cell {
-      height: 10px;
-      border-radius: 4px;
-      background: radial-gradient(circle at 30% 0, rgba(15, 23, 42, 0.1), transparent),
-        rgba(30, 64, 175, 0.7);
-      opacity: 0.4;
-    }
-
-    .heat-cell.hot {
-      opacity: 1;
-      box-shadow: 0 0 12px rgba(56, 189, 248, 0.9);
-      background: linear-gradient(to bottom, #e5f9ff, #38bdf8);
-    }
-
-    .heat-cell.warm {
-      opacity: 0.8;
-      background: linear-gradient(to bottom, #bfdbfe, #60a5fa);
-    }
-
-    .heat-legend {
-      margin-top: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 10px;
-      color: var(--text-soft);
-    }
-
-    /* SECTION LAYOUTS */
-
-    section {
-      margin-top: 40px;
-      padding-top: 16px;
-    }
-
-    .section-title {
-      font-size: 18px;
-      margin-bottom: 10px;
-    }
-
-    .section-subtitle {
-      font-size: 13px;
-      color: var(--text-soft);
-      max-width: 640px;
-    }
-
-    .two-column {
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-      gap: 20px;
-      align-items: start;
-      margin-top: 20px;
-    }
-
-    .card {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      padding: 16px 18px;
-      border: 1px solid rgba(31, 41, 55, 0.9);
-    }
-
-    .card h3 {
-      margin: 0 0 6px;
-      font-size: 14px;
-    }
-
-    .card p {
-      margin: 0;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .pill-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-      font-size: 11px;
-    }
-
-    .pill {
-      border-radius: 999px;
-      padding: 4px 10px;
-      border: 1px solid rgba(55, 65, 81, 0.9);
-      background: rgba(15, 23, 42, 0.8);
-      color: #e5e7eb;
-    }
-
-    ul {
-      padding-left: 18px;
-      margin: 8px 0;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    li + li {
-      margin-top: 4px;
-    }
-
-    /* FAQ */
-    .faq-section {
-      margin-top: 60px;
-    }
-
-    .faq-list {
-      display: grid;
-      grid-template-columns: minmax(0, 1fr);
-      gap: 12px;
-      margin-top: 18px;
-    }
-
-    .faq-item {
-      background: rgba(15, 23, 42, 0.9);
-      border-radius: var(--radius-lg);
-      border: 1px solid rgba(31, 41, 55, 0.9);
-      padding: 16px;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-
-    .faq-item:hover {
-      border-color: rgba(56, 189, 248, 0.3);
-    }
-
-    .faq-item.active {
-      border-color: var(--accent);
-    }
-
-    .faq-question {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin: 0;
-      font-size: 13px;
-      color: #e5e7eb;
-    }
-
-    .faq-answer {
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease;
-      margin: 0;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .faq-item.active .faq-answer {
-      max-height: 200px;
-      margin-top: 12px;
-    }
-
-    .faq-icon {
-      transition: transform 0.3s ease;
-      color: var(--accent);
-    }
-
-    .faq-item.active .faq-icon {
-      transform: rotate(180deg);
-    }
-
-    /* WAITLIST */
-
-    .waitlist-box {
-      margin-top: 20px;
-      background: radial-gradient(circle at 0 0, rgba(56, 189, 248, 0.25), transparent),
-        rgba(15, 23, 42, 0.96);
-      border-radius: var(--radius-xl);
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      padding: 18px 18px 16px;
-      display: grid;
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
-      gap: 18px;
-      align-items: center;
-    }
-
-    .waitlist-box h2 {
-      margin: 0 0 8px;
-      font-size: 16px;
-    }
-
-    .waitlist-box p {
-      margin: 0;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .waitlist-note {
-      margin-top: 6px;
-      font-size: 11px;
-      color: var(--text-soft);
-    }
-
-    /* MODAL STYLES */
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(2, 6, 23, 0.9);
-      backdrop-filter: blur(10px);
-      z-index: 1000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: var(--card);
-      border-radius: var(--radius-xl);
-      padding: 30px;
-      border: 1px solid rgba(148, 163, 184, 0.3);
-      box-shadow: var(--shadow-soft);
-      max-width: 420px;
-      width: 90%;
-      text-align: left;
-    }
-
-    .modal-title {
-      font-size: 20px;
-      margin-bottom: 10px;
-      color: var(--text-main);
-    }
-
-    .modal-subtitle {
-      font-size: 13px;
-      color: var(--text-soft);
-      margin-bottom: 18px;
-    }
-
-    .form-group {
-      margin-bottom: 12px;
-      text-align: left;
-    }
-
-    .form-group label {
-      display: block;
-      margin-bottom: 5px;
-      font-size: 13px;
-      color: var(--text-soft);
-    }
-
-    .form-group input,
-    .form-group select,
-    .form-group textarea {
-      width: 100%;
-      padding: 9px 12px;
-      border-radius: 8px;
-      border: 1px solid rgba(148, 163, 184, 0.5);
-      background: rgba(15, 23, 42, 0.8);
-      color: var(--text-main);
-      font-size: 14px;
-      font-family: inherit;
-      resize: vertical;
-    }
-
-    .form-group input:focus,
-    .form-group select:focus,
-    .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-    }
-
-    .form-hint {
-      font-size: 11px;
-      color: var(--text-soft);
-      margin-bottom: 6px;
-    }
-
-    .success-message {
-      display: none;
-      text-align: center;
-      padding: 40px 20px;
-    }
-
-    .success-message.active {
-      display: block;
-    }
-
-    .success-icon {
-      font-size: 48px;
-      color: #22c55e;
-      margin-bottom: 20px;
-    }
-
-    .success-title {
-      font-size: 24px;
-      margin-bottom: 10px;
-      color: var(--text-main);
-    }
-
-    .success-text {
-      font-size: 14px;
-      color: var(--text-soft);
-      margin-bottom: 20px;
-    }
-
-    /* FOOTER */
-
-    footer {
-      border-top: 1px solid rgba(31, 41, 55, 0.9);
-      margin-top: 32px;
-      padding-top: 12px;
-      font-size: 11px;
-      color: #6b7280;
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
-
-    footer a {
-      color: #9ca3af;
-    }
-
-    /* RESPONSIVE */
-
-    @media (max-width: 880px) {
-      .hero,
-      .two-column,
-      .hero-panel-body,
-      .waitlist-box,
-      .faq-list {
-        grid-template-columns: minmax(0, 1fr);
-      }
-
-      .nav-inner {
-        flex-wrap: wrap;
-      }
-
-      .nav-links {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 28px;
-      }
-    }
-
-    @media (max-width: 640px) {
-      main {
-        padding: 24px 16px 48px;
-      }
-
-      .hero-panel {
-        margin-top: 6px;
-      }
-
-      .waitlist-box {
-        padding: 14px 14px 12px;
-      }
-
-      .waitlist-form {
-        flex-direction: column;
-        align-items: stretch;
-      }
-
-      .waitlist-input,
-      .btn-primary {
-        width: 100%;
-        justify-content: center;
-      }
-
-      .modal-content {
-        padding: 20px;
-        margin: 20px;
-      }
-    }
-  </style>
+  <!-- Favicon -->
+  <link rel="icon" href="/logo.png" />
+  <!-- Tailwind CDN for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <!-- Waitlist / Alpha Modal -->
-  <div id="waitlistModal" class="modal">
-    <div class="modal-content">
-      <h2 class="modal-title">Alpha programme – SeekSense</h2>
-      <p class="modal-subtitle">
+<body class="min-h-screen flex flex-col bg-white text-slate-900">
+
+  <!-- Alpha Modal (Google Form) -->
+  <div
+    id="waitlistModal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/80 backdrop-blur"
+  >
+    <div class="bg-white text-slate-900 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 relative">
+      <button
+        type="button"
+        class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 text-xl leading-none"
+        onclick="closeWaitlistModal()"
+      >
+        &times;
+      </button>
+      <h2 class="text-xl font-semibold mb-2">Alpha programme – SeekSense</h2>
+      <p class="text-sm text-slate-600 mb-2">
         We’re looking for 5–10 teams with real robots to co-develop training-free “find-by-name” behaviours.
       </p>
-      <p class="form-hint">
+      <p class="text-xs text-slate-500 mb-4">
         Tell us a bit about your setup and what you want the robot to be able to find.
       </p>
-      <form id="waitlistForm">
-        <div class="form-group">
-          <label for="firstName">First name</label>
+
+      <form id="waitlistForm" class="space-y-3">
+        <div>
+          <label for="firstName" class="block text-xs font-medium text-slate-600 mb-1">First name</label>
           <!-- First name: entry.1371940140 -->
-          <input type="text" id="firstName" name="entry.1371940140" required>
+          <input
+            type="text"
+            id="firstName"
+            name="entry.1371940140"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
 
-        <div class="form-group">
-          <label for="lastName">Last name</label>
+        <div>
+          <label for="lastName" class="block text-xs font-medium text-slate-600 mb-1">Last name</label>
           <!-- Last name: entry.1136782564 -->
-          <input type="text" id="lastName" name="entry.1136782564" required>
+          <input
+            type="text"
+            id="lastName"
+            name="entry.1136782564"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
 
-        <div class="form-group">
-          <label for="company">Company (optional)</label>
+        <div>
+          <label for="company" class="block text-xs font-medium text-slate-600 mb-1">
+            Company (optional)
+          </label>
           <!-- Company: entry.393044842 -->
-          <input type="text" id="company" name="entry.393044842">
+          <input
+            type="text"
+            id="company"
+            name="entry.393044842"
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
 
-        <div class="form-group">
-          <label for="email">Email</label>
+        <div>
+          <label for="email" class="block text-xs font-medium text-slate-600 mb-1">Email</label>
           <!-- Email: entry.1058877347 -->
-          <input type="email" id="email" name="entry.1058877347" required>
+          <input
+            type="email"
+            id="email"
+            name="entry.1058877347"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
 
-        <div class="form-group">
-          <label for="robotPlatform">Robot platform</label>
+        <div>
+          <label for="robotPlatform" class="block text-xs font-medium text-slate-600 mb-1">
+            Robot platform
+          </label>
           <!-- Robot Platform: entry.1736100006 -->
-          <input type="text" id="robotPlatform" name="entry.1736100006" placeholder="e.g. TurtleBot, Ridgeback, Spot" required>
+          <input
+            type="text"
+            id="robotPlatform"
+            name="entry.1736100006"
+            placeholder="e.g. TurtleBot, Ridgeback, Spot"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          />
         </div>
 
-        <div class="form-group">
-          <label for="environment">Environment</label>
+        <div>
+          <label for="environment" class="block text-xs font-medium text-slate-600 mb-1">
+            Environment
+          </label>
           <!-- Environment: entry.1902499423 -->
-          <select id="environment" name="entry.1902499423" required>
+          <select
+            id="environment"
+            name="entry.1902499423"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-slate-900"
+          >
             <option value="" disabled selected>Select environment</option>
             <option value="Warehouse / depot">Warehouse / depot</option>
             <option value="Lab / R&amp;D">Lab / R&amp;D</option>
@@ -756,498 +121,812 @@
           </select>
         </div>
 
-        <div class="form-group">
-          <label for="searchTarget">What do you want the robot to be able to find?</label>
+        <div>
+          <label for="searchTarget" class="block text-xs font-medium text-slate-600 mb-1">
+            What do you want the robot to be able to find?
+          </label>
           <!-- What do you want the robot to be able to find?: entry.540267406 -->
-          <textarea id="searchTarget" name="entry.540267406" rows="3" placeholder="e.g. cleaning cart for ward C, tote 18B, spill kit in bay 4" required></textarea>
+          <textarea
+            id="searchTarget"
+            name="entry.540267406"
+            rows="3"
+            placeholder="e.g. cleaning cart for ward C, tote 18B, spill kit in bay 4"
+            required
+            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
+          ></textarea>
         </div>
 
-        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 10px;">
+        <button
+          type="submit"
+          class="w-full mt-2 inline-flex items-center justify-center rounded-md border border-slate-900 bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
+        >
           Submit
         </button>
       </form>
     </div>
   </div>
 
-  <!-- Success Message -->
-  <div id="successMessage" class="success-message">
-    <div class="success-icon">✓</div>
-    <h2 class="success-title">Thanks – you’re on the alpha list.</h2>
-    <p class="success-text">
-      We’ll reach out about fit, timelines, and next steps for integrating SeekSense on your robot.
-    </p>
-    <button class="btn btn-ghost" onclick="showHome()">Back to home</button>
+  <!-- Success Page -->
+  <div
+    id="successMessage"
+    class="hidden min-h-screen flex-col items-center justify-center bg-slate-900 text-slate-50 text-center px-4"
+  >
+    <div class="max-w-md mx-auto">
+      <div class="text-5xl mb-4">✓</div>
+      <h2 class="text-2xl font-semibold mb-3">Thanks – you’re on the alpha list.</h2>
+      <p class="text-sm text-slate-300 mb-6">
+        We’ll reach out about fit, timelines, and next steps for integrating SeekSense on your robot.
+      </p>
+      <button
+        type="button"
+        class="px-4 py-2 border border-slate-100 rounded-md text-sm hover:bg-slate-100 hover:text-slate-900"
+        onclick="showHome()"
+      >
+        Back to home
+      </button>
+    </div>
   </div>
 
-  <!-- Main Website -->
-  <div id="mainWebsite">
-    <header class="nav">
-      <div class="nav-inner">
-        <a href="#top" class="logo">
-          <span>
-            SeekSense
-            <span class="tagline-small">Semantic search for robots</span>
-          </span>
-        </a>
-        <nav class="nav-links">
-          <a href="#seek">Seek</a>
-          <a href="#foundations">Foundations</a>
-          <a href="#about">About</a>
-          <a href="#waitlist" onclick="handleWaitlistClick(); return false;">Alpha programme</a>
+  <!-- Main Website Wrapper -->
+  <div id="mainWebsite" class="flex flex-col min-h-screen">
+
+    <!-- Announcement bar -->
+    <div class="w-full border-b border-slate-200 text-xs bg-slate-50">
+      <div class="max-w-6xl mx-auto px-4 py-2 flex flex-wrap items-center gap-2 justify-between">
+        <span>
+          Introducing <strong>Seek v0.1</strong> – training-free semantic search for robots in real buildings.
+        </span>
+        <a href="#foundations" class="underline decoration-dotted">Learn how we think about navigation</a>
+      </div>
+    </div>
+
+    <!-- Nav -->
+    <header class="border-b border-slate-200 bg-white/80 backdrop-blur">
+      <div class="max-w-6xl mx-auto flex items-center justify-between py-4 px-4 gap-4">
+        <div class="flex items-center gap-2">
+          <img src="logo.png" alt="SeekSense logo" class="h-7 w-auto" />
+          <a href="#top" class="font-semibold text-sm tracking-wide uppercase">SeekSense</a>
+        </div>
+        <nav class="hidden md:flex items-center gap-6 text-sm">
+          <a href="#product" class="hover:underline">Product</a>
+          <a href="#playground" class="hover:underline">Playground</a>
+          <a href="#docs" class="hover:underline">Docs</a>
+          <a href="#foundations" class="hover:underline">Foundations</a>
+          <a href="#pricing" class="hover:underline">Pricing</a>
+          <a href="#use-cases" class="hover:underline">Use cases</a>
+          <a href="#faq" class="hover:underline">FAQ</a>
         </nav>
+        <div class="flex items-center gap-3 text-sm">
+          <a
+            href="https://github.com"
+            target="_blank"
+            rel="noreferrer"
+            class="hidden sm:inline-block hover:underline"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://x.com"
+            target="_blank"
+            rel="noreferrer"
+            class="hidden sm:inline-block hover:underline"
+          >
+            X
+          </a>
+          <button
+            type="button"
+            onclick="handleWaitlistClick()"
+            class="px-3 py-1 border border-slate-300 rounded-md hover:bg-slate-100 text-sm"
+          >
+            Apply to alpha
+          </button>
+        </div>
       </div>
     </header>
 
-    <main id="top">
-      <!-- HERO -->
-      <section class="hero" aria-label="SeekSense overview">
-        <div>
-          <div class="chip" style="margin-bottom: 8px">
-            <span class="chip-dot"></span>
-            Training-free semantic navigation
-          </div>
-          <h1 class="hero-main-title">
-            <span class="accent">Training-free semantic search</span>
-            for the physical world.
-          </h1>
-          <p class="hero-subtitle">
-            Seek is an API that lets robots find things by name in unfamiliar spaces
-            – without per-site training or custom detectors. Describe the
-            target in natural language; the system scores what the robot sees,
-            builds a semantic map and suggests where to go next.
-          </p>
-          <div class="hero-ctas">
-            <button class="btn btn-primary" onclick="handleWaitlistClick()">Apply to alpha</button>
-            <a href="#seek" class="btn btn-ghost">Explore the API</a>
-          </div>
-          <p class="hero-footnote">
-            Built for <span>labs, warehouses, hospitals, and campuses</span> where
-            layouts and objects change over time.
-          </p>
-        </div>
-
-        <aside class="hero-panel" aria-label="Semantic navigation demo">
-          <div class="hero-panel-header">
-            <div class="hero-panel-title">Example: recovery run</div>
-            <div>SeekSense search session</div>
-          </div>
-          <div class="hero-panel-body">
-            <div class="code-block" aria-label="Code example">
-              <div><span class="code-comment"># Find the blue trolley in bay 4</span></div>
-              <div>session = <span class="code-key">seek</span>.<span class="code-val">search_start</span>({</div>
-              <div style="padding-left: 16px;">
-                <span class="code-key">"target"</span>: <span class="code-str">"blue trolley in bay 4"</span>,<br />
-                <span class="code-key">"pose"</span>: robot.pose(),<br />
-                <span class="code-key">"camera"</span>: rgbd.frame()
-              </div>
-              <div>})</div>
-              <br />
-              <div><span class="code-comment"># Plan: where should I look next?</span></div>
-              <div>while not session.done:</div>
-              <div style="padding-left: 16px;">
-                waypoint = <span class="code-key">seek</span>.<span class="code-val">search_next</span>(session)<br />
-                nav.go_to(waypoint)
-              </div>
-              <br />
-              <div><span class="code-comment"># Verify & stop at a safe distance</span></div>
-              <div>result = <span class="code-key">seek</span>.<span class="code-val">search_verify</span>(session)</div>
-              <div>if result.found:</div>
-              <div style="padding-left: 16px;">
-                nav.go_to(result.approach_pose)
-              </div>
+    <main id="top" class="flex-1">
+      <!-- Hero -->
+      <section id="product" class="py-16 border-b border-slate-200 bg-white">
+        <div class="max-w-6xl mx-auto px-4 grid gap-10 md:grid-cols-2 items-center">
+          <div class="space-y-6">
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Semantic search for robots</p>
+            <h1 class="text-3xl md:text-4xl font-semibold">
+              Intuitive visual search for robots
+            </h1>
+            <p class="text-base leading-relaxed text-slate-700">
+              SeekSense is a training-free semantic navigation layer for robots.
+              Give it a simple phrase – “blue trolley in bay 4”, “visitor kiosk in atrium B” –
+              and it guides your robot through real buildings as if it has worked there for years.
+            </p>
+            <p class="text-base leading-relaxed text-slate-700">
+              No site-specific training runs. No custom detectors per deployment.
+              Just natural language in, and smart search behaviour out.
+            </p>
+            <div class="flex flex-wrap gap-3">
+              <button
+                type="button"
+                onclick="handleWaitlistClick()"
+                class="px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
+              >
+                Apply to alpha
+              </button>
+              <a href="#docs" class="px-4 py-2 text-sm text-slate-700 hover:underline">
+                Explore the API
+              </a>
             </div>
+            <p class="text-sm text-slate-500">
+              Built for labs, warehouses, hospitals, and campuses where layouts shift, inventory moves,
+              and robots need to adapt in real time.
+            </p>
+          </div>
 
-            <div class="hero-map" aria-label="Semantic frontier map">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                <span>Semantic frontier map</span>
-                <span style="font-size:10px;color:#e5e7eb;">Target: "blue trolley in bay 4"</span>
-              </div>
-              <div class="heatmap" aria-hidden="true">
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell hot"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell hot"></div>
-                <div class="heat-cell hot"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell hot"></div>
-                <div class="heat-cell warm"></div>
-
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell"></div>
-                <div class="heat-cell warm"></div>
-                <div class="heat-cell"></div>
-              </div>
-              <div class="heat-legend">
-                <span>Low likelihood</span>
-                <span>High likelihood</span>
-              </div>
+          <!-- Hero console -->
+          <div class="space-y-4 text-sm">
+            <div class="flex gap-2 text-xs text-slate-600">
+              <span class="px-2 py-1 border border-slate-200 rounded-full">[ SESSION ]</span>
+              <span class="px-2 py-1 border border-slate-200 rounded-full">[ SEARCH ]</span>
+              <span class="px-2 py-1 border border-slate-200 rounded-full">[ ACTIVITY ]</span>
             </div>
-          </div>
-        </aside>
-      </section>
-
-      <!-- FOUNDATIONS -->
-      <section id="foundations">
-        <h2 class="section-title">Solid foundations for semantic navigation</h2>
-        <p class="section-subtitle">
-          Getting a robot to a single hard-coded goal is easy. Making it find things
-          every day in changing layouts, with minimal re-engineering, is the real work.
-        </p>
-
-        <div class="two-column">
-          <div class="card">
-            <h3>What Seek does</h3>
-            <p>
-              Seek brings together semantic understanding, mapping, and exploration
-              into a single API. The system builds a language-conditioned view of the
-              environment on the fly and suggests where to go next based on meaning,
-              not just occupancy.
-            </p>
-            <ul>
-              <li>Understands targets described in natural language.</li>
-              <li>Aggregates observations into a semantic map over time.</li>
-              <li>Selects frontiers that are both unexplored and promising.</li>
-              <li>Returns approach poses at a sensible standoff distance.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>Where it fits</h3>
-            <p>
-              Seek drops into existing stacks as a semantic search layer. You keep
-              your navigation, control, and safety logic; we provide "what to look for"
-              and "where to go next".
-            </p>
-            <div class="pill-row">
-              <span class="pill">Warehouses &amp; depots</span>
-              <span class="pill">Hospitals &amp; labs</span>
-              <span class="pill">Campuses &amp; offices</span>
-              <span class="pill">R&amp;D platforms</span>
+            <div class="border border-slate-200 rounded-xl p-4 space-y-4 font-mono text-xs bg-slate-50">
+<pre>
+::..
+.-:.
+.::.
+..:  ..
+: .:.:  ..
+:..  .  .::.
+:.  .--..
+.::.  .  .::.
+. :.  .  ..  .:.
+ -...:...::  :..
+..:  .  .:.  ....
+[ 200 OK ]  SeekSense
+</pre>
+              <p># semantic-search session</p>
+              <p>
+                target: "blue trolley in bay 4"<br />
+                environment: ward corridor<br />
+                mode: training-free
+              </p>
+<pre>
+&gt; starting search...
+&gt; narrowing down promising areas...
+&gt; suggesting safe approach pose...
+</pre>
             </div>
-          </div>
-        </div>
-
-        <div class="two-column" style="margin-top: 24px;">
-          <div class="card">
-            <h3>Learning by doing</h3>
-            <p>
-              We develop Seek in close collaboration with early users across
-              operations, robotics, and research. Each deployment feeds back into the
-              product: better grading tools, clearer logs, and tighter interfaces.
-            </p>
-            <ul>
-              <li>Recovery runs: "find pallet 18B" when scans disagree.</li>
-              <li>Guided tasks: "walk to the visitor kiosk in atrium B".</li>
-              <li>Inspection: search around assets that don't stay put.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>Hardware-agnostic by design</h3>
-            <p>
-              Any platform that can localise and stream camera data can work with
-              Seek.
-            </p>
-            <ul>
-              <li>AMRs and AGVs in logistics and healthcare.</li>
-              <li>Mobile bases with arms in labs and light industry.</li>
-              <li>Quadrupeds and humanoids in complex indoor spaces.</li>
-              <li>Drones with a stable pose estimate.</li>
-            </ul>
           </div>
         </div>
       </section>
 
-      <!-- SEEK / API -->
-      <section id="seek">
-        <h2 class="section-title">Seek: an API for training-free semantic search</h2>
-        <p class="section-subtitle">
-          Seek is our cloud API for find-by-name behaviours. Open a search session,
-          stream observations, and receive waypoints and approach poses conditioned on
-          natural language descriptions.
-        </p>
+      <!-- Benefits strip (replaced "Built for robotics teams in ...") -->
+      <section class="py-8 border-b border-slate-200 bg-slate-50">
+        <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center gap-4 text-sm text-slate-700">
+          <span class="font-medium text-slate-900">Helps robotics teams deliver</span>
+          <span>• Faster recovery runs</span>
+          <span>• Fewer manual searches</span>
+          <span>• Clearer robot behaviour</span>
+          <span>• Reusable search logic</span>
+        </div>
+      </section>
 
-        <div class="two-column">
-          <div class="card">
-            <h3>Your robot in four calls</h3>
-            <p>
-              Seek is designed to be simple to integrate. A typical loop calls
-              <code>search_start</code>, then <code>search_next</code> until verification,
-              and finally <code>search_verify</code> plus an optional
-              <code>checkpoint</code>.
-            </p>
-            <ul>
-              <li>
-                <strong>search_start</strong> – open a session, provide the target phrase,
-                pose, and camera model.
-              </li>
-              <li>
-                <strong>search_next</strong> – get the next waypoint that balances
-                exploration and semantic likelihood.
-              </li>
-              <li>
-                <strong>search_verify</strong> – confirm the target and receive a safe
-                approach pose when it is visible.
-              </li>
-              <li>
-                <strong>checkpoint</strong> – persist maps and traces to replay or resume
-                a run.
-              </li>
-            </ul>
+      <!-- Mode pills -->
+      <section class="py-12 border-b border-slate-200 bg-white">
+        <div class="max-w-6xl mx-auto px-4">
+          <div class="flex flex-wrap gap-3 text-xs md:text-sm" id="modePills">
+            <button
+              type="button"
+              class="mode-pill px-3 py-1 border rounded-full bg-slate-900 text-white border-slate-900"
+              data-mode="search"
+            >
+              Search
+            </button>
+            <button
+              type="button"
+              class="mode-pill px-3 py-1 border rounded-full border-slate-200 text-slate-600 bg-white"
+              data-mode="explore"
+            >
+              Explore
+            </button>
+            <button
+              type="button"
+              class="mode-pill px-3 py-1 border rounded-full border-slate-200 text-slate-600 bg-white"
+              data-mode="guide"
+            >
+              Guide
+            </button>
+            <button
+              type="button"
+              class="mode-pill px-3 py-1 border rounded-full border-slate-200 text-slate-600 bg-white"
+              data-mode="verify"
+            >
+              Verify
+            </button>
           </div>
+          <h2 class="mt-6 text-2xl md:text-3xl font-semibold max-w-2xl">
+            Turn your buildings into language-searchable space
+          </h2>
+          <p class="mt-3 text-base max-w-2xl text-slate-700">
+            Instead of “go to coordinate X”, ask your robot to “go find that thing”
+            – and let SeekSense handle the rest.
+          </p>
 
-          <div class="card">
-            <h3>Example flow</h3>
-            <p>
-              A basic integration couples Seek with your navigation stack. Pseudocode:
+          <!-- Dynamic mode description -->
+          <div class="mt-6 max-w-xl text-sm">
+            <h3 id="modeTitle" class="font-medium text-slate-900 mb-1">Search</h3>
+            <p id="modeDescription" class="text-slate-700">
+              Point the robot at a simple phrase like “blue trolley in bay 4” and let SeekSense decide where
+              to look first, next, and when it’s close enough to stop.
             </p>
-            <pre class="code-block" style="margin-top: 8px;"><code><span class="code-comment"># Start a semantic search</span>
-session = seek.search_start({
-  "target": "cleaning cart for ward C",
-  "pose": robot.pose(),
-  "camera": rgbd.frame()
-})
+          </div>
+        </div>
+      </section>
 
-<span class="code-comment"># Move through promising frontiers</span>
+      <!-- Main features -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="features">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Main Features //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              Search that feels natural to humans, reliable for robots
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              SeekSense gives robots a sense of what they’re looking for, where it might be,
+              and when they’re close enough — all from a simple phrase.
+            </p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Understands natural descriptions</h3>
+              <p class="text-slate-700">
+                Describe targets the way teams already talk:
+                “spill kit in bay 4”, “equipment trolley for theatre 2”, “scanner cart 3”.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Remembers where it has looked</h3>
+              <p class="text-slate-700">
+                SeekSense keeps track of what the robot has already seen, so it doesn’t keep
+                circling the same empty corner when there are better places to check.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Moves with intent</h3>
+              <p class="text-slate-700">
+                The search behaviour focuses time and motion on areas that matter,
+                instead of blindly sweeping every corridor just to “cover the map”.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Developer-first / code block -->
+      <section class="py-16 border-b border-slate-200 bg-slate-50" id="docs">
+        <div class="max-w-6xl mx-auto px-4 grid gap-10 md:grid-cols-2 items-start">
+          <div class="space-y-4">
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Developer First //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold">
+              Add “find-by-name” in a single loop
+            </h2>
+            <p class="text-base text-slate-700">
+              SeekSense plugs into the stack you already have. You keep SLAM, planning, and safety.
+              We provide the search behaviour and high-level goals.
+            </p>
+            <p class="text-sm text-slate-500">
+              Works with ROS 2, simulators, custom frameworks, and real robots.  
+              No changes to your low-level control required.
+            </p>
+            <div class="flex gap-3 text-xs">
+              <span class="px-3 py-1 border border-slate-200 rounded-full text-slate-700">Python</span>
+              <span class="px-3 py-1 border border-slate-200 rounded-full text-slate-500">C++</span>
+              <span class="px-3 py-1 border border-slate-200 rounded-full text-slate-500">ROS 2</span>
+            </div>
+          </div>
+          <div class="border border-slate-200 rounded-xl p-4 bg-slate-900 text-slate-100">
+            <div class="flex justify-between items-center mb-3 text-xs text-slate-300">
+              <span>[ ROBOT ]</span>
+              <span>[ SEARCH ]</span>
+              <span>[ API ]</span>
+            </div>
+<pre class="text-xs font-mono overflow-auto">
+from seeksense import Seek
+
+seek = Seek(api_key="ss-YOUR_API_KEY")
+
+# Start a natural-language search
+session = seek.search_start(
+    target="blue trolley in bay 4",
+    pose=robot.pose(),
+    frame=rgbd.latest_frame(),
+)
+
+# Ask SeekSense where to look next
 while not session.done:
-  waypoint = seek.search_next(session)
-  nav.go_to(waypoint)
+    waypoint = seek.search_next(session.id)
+    nav.go_to(waypoint)
 
-<span class="code-comment"># Verify and stop at a sensible distance</span>
-result = seek.search_verify(session)
+    # Stream updates as the robot moves
+    seek.search_update(
+        session_id=session.id,
+        pose=robot.pose(),
+        frame=rgbd.latest_frame(),
+    )
+
+# When SeekSense confirms the target
+result = seek.search_verify(session.id)
 if result.found:
-  nav.go_to(result.approach_pose)</code></pre>
+    nav.go_to(result.approach_pose)
+</pre>
           </div>
         </div>
       </section>
 
-      <!-- ABOUT -->
-      <section id="about">
-        <h2 class="section-title">About SeekSense</h2>
-        <p class="section-subtitle">
-          Our aim is simple: give any robot the ability to find things by name safely,
-          reliably, and from day one – without turning every deployment into a custom
-          perception project.
-        </p>
-
-        <div class="two-column">
-          <div class="card">
-            <h3>What we build</h3>
-            <p>
-              Seek turns advances in vision–language navigation into a straightforward
-              service. You describe what you care about – "spill kit in bay 4", "equipment
-              trolley for theatre 2", "scanner cart 3" – and Seek suggests where the robot
-              should go and when it is close enough.
-            </p>
-            <ul>
-              <li>Image–text scoring to interpret your target phrases.</li>
-              <li>On-the-fly mapping of observations over time.</li>
-              <li>Language-conditioned heatmaps to highlight promising areas.</li>
-              <li>Approach poses tuned for safe stopping distances.</li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>Why now</h3>
-            <p>
-              Perception has improved dramatically, but deployments still get stuck on
-              environment-specific training loops, vendor-locked stacks, and slow
-              integrations at each new site. Seek makes "find-by-name" behaviour a
-              shared capability rather than a one-off project.
-            </p>
-            <ul>
-              <li>You keep your navigation, control, and safety layers.</li>
-              <li>We provide the semantic search and waypoint generation.</li>
-              <li>The same API works across different fleets and layouts.</li>
-            </ul>
-          </div>
+      <!-- Integrations -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="playground">
+        <div class="max-w-6xl mx-auto px-4 space-y-4">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Integrations //</p>
+          <h2 class="text-2xl md:text-3xl font-semibold">
+            Drop into the stack you already run
+          </h2>
+          <p class="text-base max-w-2xl text-slate-700">
+            SeekSense fits alongside your existing tools instead of replacing them.
+          </p>
+          <ul class="grid gap-3 md:grid-cols-2 text-sm mt-4 text-slate-700">
+            <li>• Use SeekSense waypoints as goals for your existing planners.</li>
+            <li>• Prototype everything in simulation before touching real hardware.</li>
+            <li>• Export search runs as traces for debugging, demos, and reports.</li>
+            <li>• Hook logs into your current observability and monitoring stack.</li>
+          </ul>
         </div>
+      </section>
 
-        <div class="two-column" style="margin-top: 24px;">
-          <div class="card">
-            <h3>Who we serve</h3>
-            <ul>
-              <li>
-                <strong>Learners &amp; educators</strong> – run "find-by-name" labs in
-                simulation or on small robots without touching model training.
-              </li>
-              <li>
-                <strong>Researchers</strong> – structured navigation setups, seeded
-                evaluations, and artefacts that are easier to reproduce.
-              </li>
-              <li>
-                <strong>Developers &amp; startups</strong> – environment-agnostic search in
-                weeks instead of months.
-              </li>
-              <li>
-                <strong>Integrators &amp; platform teams</strong> – one semantic search API
-                that scales across sites and fleets.
-              </li>
-              <li>
-                <strong>Operations teams</strong> – faster recoveries and searchable
-                evidence of what the robot saw and did.
-              </li>
-            </ul>
-          </div>
-
-          <div class="card">
-            <h3>How Seek works in practice</h3>
-            <p>
-              A typical deployment streams camera frames and poses to Seek. The
-              system aggregates those into a semantic map, selects promising frontiers,
-              and returns waypoints and approach poses you can pass to your existing
-              navigation stack.
+      <!-- Foundations / Principles -->
+      <section class="py-16 border-b border-slate-200 bg-slate-50" id="foundations">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Foundations //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              Built for dynamic environments, not static maps
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              SeekSense is designed around the messy reality of real buildings:
+              things move, people rearrange spaces, and robots arrive after everything has changed.
             </p>
-            <ul>
-              <li>Perceive &amp; score – understand what is seen relative to the target.</li>
-              <li>Explore with intent – move toward areas that are semantically likely.</li>
-              <li>Verify &amp; approach – confirm the target and stop at a safe distance.</li>
-              <li>Checkpoint – capture artefacts for replay, grading, and demos.</li>
-            </ul>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Training-free by default</h3>
+              <p class="text-slate-700">
+                No per-site retraining just to make “find the trolley” work.
+                SeekSense aims to generalise across locations from day one.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Platform-agnostic</h3>
+              <p class="text-slate-700">
+                Any platform that can localise and stream a camera feed can use SeekSense —
+                AMRs, mobile bases with arms, quadrupeds, and more.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Observable behaviour</h3>
+              <p class="text-slate-700">
+                Search runs produce clear traces, so teams can understand how a robot looked for something
+                and why it chose the paths it did.
+              </p>
+            </article>
           </div>
         </div>
       </section>
 
-      <!-- ALPHA / WAITLIST -->
-      <section id="waitlist">
-        <div class="waitlist-box">
+      <!-- Feature detail -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="feature-detail">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
           <div>
-            <h2>Alpha programme: 5–10 teams who want training-free “find-by-name” on their robot.</h2>
-            <p>
-              We’re selecting a small group of partners to run SeekSense in real environments
-              and help shape the product.
-            </p>
-            <ul>
-              <li>Must have a mobile robot already moving in a real environment.</li>
-              <li>Willing to jump on 1–2 calls to integrate.</li>
-              <li>In warehouses, hospitals, labs, or campuses.</li>
-            </ul>
-            <p class="waitlist-note">
-              We only email when there is something useful to share. No spam; unsubscribe
-              anytime.
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Features //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              We handle the search behaviour so you don’t have to
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              Instead of writing a new script every time you want a robot to “go and find X”,
+              you call SeekSense and reuse the same behaviour across fleets and sites.
             </p>
           </div>
+          <div class="grid gap-6 md:grid-cols-2 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Language-driven goals</h3>
+              <p class="text-slate-700">
+                Move from internally-named waypoints to natural phrases that operations teams actually use.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Consistent search patterns</h3>
+              <p class="text-slate-700">
+                Get predictable, repeatable search behaviour instead of handcrafted routines that differ per robot.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Safe approach poses</h3>
+              <p class="text-slate-700">
+                When a target is found, SeekSense proposes sensible stand-off distances for inspection,
+                handover, or docking.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Replayable traces</h3>
+              <p class="text-slate-700">
+                Save runs as artefacts you can replay, compare over time, or use as evidence for pilots and audits.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Pricing -->
+      <section class="py-16 border-b border-slate-200 bg-slate-50" id="pricing">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
           <div>
-            <button class="btn btn-primary" onclick="handleWaitlistClick()" style="width: 100%;">
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Pricing //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              Flexible access while we’re in alpha
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              Right now we’re working closely with a handful of teams.
+              No public pricing page, no self-serve yet — just robots, real spaces, and clear outcomes.
+            </p>
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-4 text-sm">
+            <!-- Sandbox -->
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Sandbox</h3>
+              <p class="text-slate-600">For simulation and small robots.</p>
+              <p class="text-2xl font-semibold text-slate-900">Free</p>
+              <p class="text-slate-500 text-xs">per month (limited)</p>
+              <ul class="mt-3 space-y-1 text-slate-700">
+                <li>• Core API access</li>
+                <li>• Simulation-only usage</li>
+                <li>• Community support</li>
+              </ul>
+              <button
+                type="button"
+                onclick="handleWaitlistClick()"
+                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
+              >
+                Request access
+              </button>
+            </article>
+
+            <!-- Pilot -->
+            <article class="border border-slate-900 rounded-xl p-4 space-y-2 bg-slate-900 text-slate-50">
+              <h3 class="font-medium">Pilot</h3>
+              <p class="text-slate-200">For 1–2 robots in a live site.</p>
+              <p class="text-2xl font-semibold text-white">Custom</p>
+              <p class="text-slate-300 text-xs">per pilot</p>
+              <ul class="mt-3 space-y-1">
+                <li>• Up to 2 robots</li>
+                <li>• Single building</li>
+                <li>• Weekly check-ins</li>
+              </ul>
+              <button
+                type="button"
+                onclick="handleWaitlistClick()"
+                class="inline-block mt-4 px-3 py-1 border border-slate-50 rounded-md text-xs hover:bg-slate-50 hover:text-slate-900"
+              >
+                Apply to alpha
+              </button>
+            </article>
+
+            <!-- Team -->
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Team</h3>
+              <p class="text-slate-600">For robotics teams with fleets.</p>
+              <p class="text-2xl font-semibold text-slate-900">TBD</p>
+              <p class="text-slate-500 text-xs">post-alpha</p>
+              <ul class="mt-3 space-y-1 text-slate-700">
+                <li>• Multiple robots & sites</li>
+                <li>• Priority support</li>
+                <li>• Rollout planning</li>
+              </ul>
+              <a
+                href="mailto:m.swalihu@hotmail.com"
+                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
+              >
+                Talk to us
+              </a>
+            </article>
+
+            <!-- Enterprise -->
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Enterprise</h3>
+              <p class="text-slate-600">For large fleets and custom constraints.</p>
+              <p class="text-2xl font-semibold text-slate-900">Contact</p>
+              <p class="text-slate-500 text-xs">for details</p>
+              <ul class="mt-3 space-y-1 text-slate-700">
+                <li>• Deep integrations</li>
+                <li>• Custom security & SLAs</li>
+                <li>• Joint pilots & metrics</li>
+              </ul>
+              <a
+                href="mailto:m.swalihu@hotmail.com"
+                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
+              >
+                Contact sales
+              </a>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Testimonials -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="testimonials">
+        <div class="max-w-6xl mx-auto px-4 space-y-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Community //</p>
+          <h2 class="text-2xl md:text-3xl font-semibold">
+            Early partners on SeekSense
+          </h2>
+          <p class="text-base max-w-2xl text-slate-700">
+            How teams are turning “go find X” into a repeatable behaviour instead of a one-off demo.
+          </p>
+
+          <div class="grid gap-4 md:grid-cols-2 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <p class="text-slate-800">
+                “We dropped SeekSense in front of our existing stack and were running language-driven recovery
+                runs in simulation in a weekend.”
+              </p>
+              <p class="text-slate-500 text-xs">Pilot partner – Warehouse robotics team</p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <p class="text-slate-800">
+                “Having a single, shared search behaviour across robots is a huge step up from custom scripts
+                per experiment.”
+              </p>
+              <p class="text-slate-500 text-xs">Research engineer – Robotics lab</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Use cases -->
+      <section class="py-16 border-b border-slate-200 bg-slate-50" id="use-cases">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Use cases //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              From “where is it?” to repeatable robot routines
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              A few ways teams use SeekSense in practice.
+            </p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Recovery runs</h3>
+              <p class="text-slate-700">
+                When inventory and reality disagree, send a robot to “find pallet 18B” or “locate scanner cart 3”
+                and bring back evidence.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Guided navigation</h3>
+              <p class="text-slate-700">
+                Help visitors and staff with instructions like “walk to the visitor kiosk in atrium B”
+                or “go to the charging bay for unit 12”.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Asset search & inspection</h3>
+              <p class="text-slate-700">
+                Let robots look for mobile assets – trolleys, carts, spill kits – that don’t stay in fixed bays.
+              </p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
+              <h3 class="font-medium text-slate-900">Research & teaching</h3>
+              <p class="text-slate-700">
+                Run language-driven navigation experiments without building a search behaviour from scratch
+                every semester.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Alpha programme section -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="alpha">
+        <div class="max-w-6xl mx-auto px-4 space-y-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Get started //</p>
+          <h2 class="text-2xl md:text-3xl font-semibold">
+            Alpha access for 5–10 teams
+          </h2>
+          <p class="text-base max-w-2xl text-slate-700">
+            We’re working closely with a small group of partners to prove SeekSense in demanding environments.
+            If you already have a robot moving in a real building, we’d love to talk.
+          </p>
+          <ul class="text-sm space-y-1 text-slate-700">
+            <li>• A mobile robot already operating in a real environment.</li>
+            <li>• Ability to stream camera frames and poses to an API.</li>
+            <li>• Working in logistics, healthcare, research, or similar indoor settings.</li>
+          </ul>
+          <div class="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onclick="handleWaitlistClick()"
+              class="px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
+            >
               Apply to alpha
             </button>
-            <p class="waitlist-note" style="margin-top: 10px;">
-              Prefer email? Contact us at
-              <a href="mailto:team@seeksense-ai.com">team@seeksense-ai.com</a>.
-            </p>
+            <a
+              href="mailto:m.swalihu@hotmail.com"
+              class="px-4 py-2 text-sm text-slate-700 hover:underline"
+            >
+              Email us
+            </a>
           </div>
         </div>
       </section>
 
-      <!-- FAQ SECTION -->
-      <section class="faq-section">
-        <h2 class="section-title">Frequently Asked Questions</h2>
-        <p class="section-subtitle">
-          Common questions about SeekSense and how it works.
-        </p>
-        
-        <div class="faq-list">
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              What is Seek?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              Seek is a semantic search API for robotics. It lets robots find objects and locations by name in environments they haven't been trained on, by combining vision–language models, mapping, and exploration under one interface.
-            </div>
-          </div>
-
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              How can I access the API?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              We're rolling out access gradually. Join the alpha programme to be first in line for the developer preview, example integrations, and our early adopter track.
-            </div>
-          </div>
-
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              What types of robots are compatible?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              Any platform that can estimate its pose and stream camera data, including AMRs, AGVs, mobile bases with arms, quadrupeds, humanoids, and drones with stabilised pose estimates.
-            </div>
-          </div>
-
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              Do I need training data for each site?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              No. Seek is designed for training-free deployment. You provide the robot's observations and a language description of the target; the system handles semantic scoring and search.
-            </div>
-          </div>
-
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              How does the pricing work?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              We’re working with alpha partners on flexible, usage-based pricing. Early teams will get discounted access in exchange for feedback and shared learnings.
-            </div>
-          </div>
-
-          <div class="faq-item" onclick="toggleFAQ(this)">
-            <div class="faq-question">
-              Can I use Seek with my existing robot?
-              <span class="faq-icon">▼</span>
-            </div>
-            <div class="faq-answer">
-              Yes. Seek is hardware-agnostic and works with any robot that can provide pose estimation and camera data through our simple API.
-            </div>
+      <!-- FAQ -->
+      <section class="py-16 border-b border-slate-200 bg-slate-50" id="faq">
+        <div class="max-w-6xl mx-auto px-4 space-y-6">
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">FAQ //</p>
+          <h2 class="text-2xl md:text-3xl font-semibold">
+            Frequently asked questions
+          </h2>
+          <p class="text-base max-w-2xl text-slate-700">
+            Everything you need to know about how SeekSense fits into your robots and your stack.
+          </p>
+          <div class="space-y-4 text-sm max-w-3xl">
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                What is SeekSense?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                SeekSense is a semantic navigation layer that lets robots find things in real buildings using
+                natural language, not just coordinates.
+              </p>
+            </details>
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                Do we need to train it for each site?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                No. SeekSense is designed to work across sites without per-environment training loops.
+                You may tune some parameters for your platform and use case, but not retrain from scratch.
+              </p>
+            </details>
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                Which robots are compatible?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                Any platform that can estimate its pose and stream a camera feed — AMRs, mobile manipulators,
+                quadrupeds, and indoor drones.
+              </p>
+            </details>
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                Does SeekSense replace our navigation stack?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                No. You keep navigation, control, and safety. SeekSense provides high-level search behaviour
+                and goal suggestions that plug into your existing stack.
+              </p>
+            </details>
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                Can SeekSense run on-prem?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                During the alpha, SeekSense runs as a hosted API. For larger deployments we’re open to discussing
+                on-prem or VPC setups with partners.
+              </p>
+            </details>
+            <details class="border border-slate-200 rounded-md p-3 bg-white">
+              <summary class="font-medium cursor-pointer text-slate-900">
+                How does pricing work?
+              </summary>
+              <p class="mt-2 text-slate-700">
+                While in alpha, we work on a case-by-case basis. Longer term, pricing will be based on usage and
+                number of robots, similar to other infrastructure APIs.
+              </p>
+            </details>
           </div>
         </div>
       </section>
-
-      <footer>
-        <div>SeekSense © 2025</div>
-        <div>
-          <a href="#">Terms of service</a> ·
-          <a href="#">Privacy notice</a>
-        </div>
-      </footer>
     </main>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-slate-200 bg-white">
+      <div class="max-w-6xl mx-auto px-4 grid gap-8 md:grid-cols-4 text-sm">
+        <div class="space-y-2">
+          <p class="font-semibold text-slate-900">SeekSense</p>
+          <p class="text-slate-600">
+            Semantic search for robots, from day one.
+          </p>
+        </div>
+        <div class="space-y-1">
+          <p class="font-medium text-slate-900">Product</p>
+          <a href="#product" class="text-slate-600 hover:underline">Overview</a><br />
+          <a href="#docs" class="text-slate-600 hover:underline">API docs</a><br />
+          <a href="#playground" class="text-slate-600 hover:underline">Playground</a>
+        </div>
+        <div class="space-y-1">
+          <p class="font-medium text-slate-900">Resources</p>
+          <a href="#foundations" class="text-slate-600 hover:underline">Foundations</a><br />
+          <a href="#use-cases" class="text-slate-600 hover:underline">Use cases</a><br />
+          <a href="#faq" class="text-slate-600 hover:underline">FAQ</a>
+        </div>
+        <div class="space-y-1">
+          <p class="font-medium text-slate-900">Company</p>
+          <a href="mailto:m.swalihu@hotmail.com" class="text-slate-600 hover:underline">Contact</a><br />
+          <a href="#terms" class="text-slate-600 hover:underline">Terms of Service</a><br />
+          <a href="#privacy" class="text-slate-600 hover:underline">Privacy Policy</a>
+        </div>
+      </div>
+      <div class="max-w-6xl mx-auto px-4 mt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
+        <p>© 2025 SeekSense</p>
+        <div class="flex gap-3">
+          <a href="https://x.com" target="_blank" rel="noreferrer" class="hover:underline">X</a>
+          <a href="https://github.com" target="_blank" rel="noreferrer" class="hover:underline">GitHub</a>
+          <a href="#status" class="hover:underline">Status</a>
+        </div>
+      </div>
+    </footer>
   </div>
 
   <script>
+    // MODE PILL LOGIC
+    const modeContent = {
+      search: {
+        title: 'Search',
+        description:
+          'Point the robot at a simple phrase like “blue trolley in bay 4” and let SeekSense decide where to look first, next, and when it’s close enough to stop.',
+      },
+      explore: {
+        title: 'Explore',
+        description:
+          'Use natural-language hints to focus exploration on areas that matter, instead of sweeping every corridor just to “cover the map”.',
+      },
+      guide: {
+        title: 'Guide',
+        description:
+          'Turn free-form requests like “take me to the visitor kiosk in atrium B” into guided paths that feel natural to people using the robot.',
+      },
+      verify: {
+        title: 'Verify',
+        description:
+          'Ask the robot to double-check: “is spill kit in bay 4?” and get a clear yes/no plus where it looked and what it saw along the way.',
+      },
+    };
+
+    const modeTitleEl = document.getElementById('modeTitle');
+    const modeDescriptionEl = document.getElementById('modeDescription');
+    const modePills = document.querySelectorAll('.mode-pill');
+
+    modePills.forEach((pill) => {
+      pill.addEventListener('click', () => {
+        const mode = pill.getAttribute('data-mode');
+
+        // Update classes
+        modePills.forEach((p) => {
+          p.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
+          p.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
+        });
+        pill.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
+        pill.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
+
+        // Update text
+        const content = modeContent[mode];
+        if (content) {
+          modeTitleEl.textContent = content.title;
+          modeDescriptionEl.textContent = content.description;
+        }
+      });
+    });
+
+    // ALPHA / FORM LOGIC
+
     // Check if user has already submitted the form
     function hasSubmittedForm() {
       return localStorage.getItem('seekSenseWaitlistSubmitted') === 'true';
@@ -1266,77 +945,69 @@ if result.found:
     }
 
     function openWaitlistModal() {
-      document.getElementById('waitlistModal').classList.add('active');
+      const modal = document.getElementById('waitlistModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
     }
 
     function closeWaitlistModal() {
-      document.getElementById('waitlistModal').classList.remove('active');
+      const modal = document.getElementById('waitlistModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
     }
 
     function showSuccess() {
       document.getElementById('mainWebsite').style.display = 'none';
-      document.getElementById('waitlistModal').classList.remove('active');
-      document.getElementById('successMessage').classList.add('active');
+      closeWaitlistModal();
+      const success = document.getElementById('successMessage');
+      success.classList.remove('hidden');
+      success.classList.add('flex');
+      window.scrollTo(0, 0);
     }
 
     function showHome() {
-      document.getElementById('successMessage').classList.remove('active');
-      document.getElementById('mainWebsite').style.display = 'block';
-      // Scroll to top
+      const success = document.getElementById('successMessage');
+      success.classList.add('hidden');
+      success.classList.remove('flex');
+      document.getElementById('mainWebsite').style.display = 'flex';
       window.scrollTo(0, 0);
     }
 
     // Handle form submission to Google Forms
-    document.getElementById('waitlistForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      
-      // Get form data
-      const formData = new FormData(this);
-      
-      // Create hidden iframe for submission
-      const iframe = document.createElement('iframe');
-      iframe.style.display = 'none';
-      iframe.name = 'hidden-iframe';
-      document.body.appendChild(iframe);
-      
-      // Set form target to iframe and submit to Google Forms
-      this.target = 'hidden-iframe';
-      this.action = 'https://docs.google.com/forms/d/e/1FAIpQLSeP9EEfbAa-5YU9fZ1zuXspEBylLUEwtLiNQyZ3LioGhrLmfA/formResponse';
-      this.submit();
-      
-      // Mark as submitted and show success
-      setFormSubmitted();
-      setTimeout(() => {
-        showSuccess();
-        // Remove iframe after submission
-        setTimeout(() => {
-          if (document.body.contains(iframe)) {
-            document.body.removeChild(iframe);
-          }
-        }, 1000);
-      }, 1000);
-      
-      // Reset form
-      setTimeout(() => {
-        this.reset();
-      }, 2000);
-    });
+    const waitlistForm = document.getElementById('waitlistForm');
+    if (waitlistForm) {
+      waitlistForm.addEventListener('submit', function(e) {
+        e.preventDefault();
 
-    // FAQ toggle function
-    function toggleFAQ(element) {
-      // Close all other FAQs
-      const allFAQs = document.querySelectorAll('.faq-item');
-      allFAQs.forEach(faq => {
-        if (faq !== element) {
-          faq.classList.remove('active');
-        }
+        // Create hidden iframe for submission
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.name = 'hidden-iframe';
+        document.body.appendChild(iframe);
+
+        this.target = 'hidden-iframe';
+        this.action = 'https://docs.google.com/forms/d/e/1FAIpQLSeP9EEfbAa-5YU9fZ1zuXspEBylLUEwtLiNQyZ3LioGhrLmfA/formResponse';
+        this.method = 'POST';
+        this.submit();
+
+        setFormSubmitted();
+
+        setTimeout(() => {
+          showSuccess();
+          setTimeout(() => {
+            if (document.body.contains(iframe)) {
+              document.body.removeChild(iframe);
+            }
+          }, 1000);
+        }, 800);
+
+        setTimeout(() => {
+          this.reset();
+        }, 1500);
       });
-      
-      // Toggle current FAQ
-      element.classList.toggle('active');
     }
 
-    // Close modal when clicking outside
+    // Close modal when clicking on backdrop
     document.getElementById('waitlistModal').addEventListener('click', function(e) {
       if (e.target === this) {
         closeWaitlistModal();
@@ -1347,16 +1018,6 @@ if result.found:
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') {
         closeWaitlistModal();
-      }
-    });
-
-    // Close FAQ when clicking outside
-    document.addEventListener('click', function(e) {
-      if (!e.target.closest('.faq-item')) {
-        const allFAQs = document.querySelectorAll('.faq-item');
-        allFAQs.forEach(faq => {
-          faq.classList.remove('active');
-        });
       }
     });
   </script>
