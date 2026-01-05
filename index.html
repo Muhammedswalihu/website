@@ -6,168 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
   <meta
     name="description"
-    content="Seek gives robots a natural way to find things in the real world using language, not just coordinates."
+    content="SeekSense gives robots a training-free way to find objects and places in real buildings using natural language."
   />
-  <!-- Favicon --> <link rel="icon" href="/seeksense-logo.png">
-  <!-- Favicon -->
   <link rel="icon" href="/seeksense-logo.png" />
-  <!-- Tailwind CDN for styling -->
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="min-h-screen flex flex-col bg-white text-slate-900">
-
-  <!-- Alpha Modal (Google Form) -->
-  <div
-    id="waitlistModal"
-    class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-900/80 backdrop-blur"
-  >
-    <div class="bg-white text-slate-900 rounded-2xl shadow-xl max-w-md w-full mx-4 p-6 relative">
-      <button
-        type="button"
-        class="absolute right-4 top-4 text-slate-400 hover:text-slate-600 text-xl leading-none"
-        onclick="closeWaitlistModal()"
-      >
-        &times;
-      </button>
-      <h2 class="text-xl font-semibold mb-2">Alpha programme – SeekSense</h2>
-      <p class="text-sm text-slate-600 mb-2">
-        We’re looking for 5–10 teams with real robots to co-develop training-free “find-by-name” behaviours.
-      </p>
-      <p class="text-xs text-slate-500 mb-4">
-        Tell us a bit about your setup and what you want the robot to be able to find.
-      </p>
-
-      <form id="waitlistForm" class="space-y-3">
-        <div>
-          <label for="firstName" class="block text-xs font-medium text-slate-600 mb-1">First name</label>
-          <!-- First name: entry.1371940140 -->
-          <input
-            type="text"
-            id="firstName"
-            name="entry.1371940140"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        <div>
-          <label for="lastName" class="block text-xs font-medium text-slate-600 mb-1">Last name</label>
-          <!-- Last name: entry.1136782564 -->
-          <input
-            type="text"
-            id="lastName"
-            name="entry.1136782564"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        <div>
-          <label for="company" class="block text-xs font-medium text-slate-600 mb-1">
-            Company (optional)
-          </label>
-          <!-- Company: entry.393044842 -->
-          <input
-            type="text"
-            id="company"
-            name="entry.393044842"
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        <div>
-          <label for="email" class="block text-xs font-medium text-slate-600 mb-1">Email</label>
-          <!-- Email: entry.1058877347 -->
-          <input
-            type="email"
-            id="email"
-            name="entry.1058877347"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        <div>
-          <label for="robotPlatform" class="block text-xs font-medium text-slate-600 mb-1">
-            Robot platform
-          </label>
-          <!-- Robot Platform: entry.1736100006 -->
-          <input
-            type="text"
-            id="robotPlatform"
-            name="entry.1736100006"
-            placeholder="e.g. TurtleBot, Ridgeback, Spot"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          />
-        </div>
-
-        <div>
-          <label for="environment" class="block text-xs font-medium text-slate-600 mb-1">
-            Environment
-          </label>
-          <!-- Environment: entry.1902499423 -->
-          <select
-            id="environment"
-            name="entry.1902499423"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm bg-white focus:outline-none focus:ring-1 focus:ring-slate-900"
-          >
-            <option value="" disabled selected>Select environment</option>
-            <option value="Warehouse / depot">Warehouse / depot</option>
-            <option value="Lab / R&amp;D">Lab / R&amp;D</option>
-            <option value="Hospital / healthcare">Hospital / healthcare</option>
-            <option value="Campus / office">Campus / office</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-        <div>
-          <label for="searchTarget" class="block text-xs font-medium text-slate-600 mb-1">
-            What do you want the robot to be able to find?
-          </label>
-          <!-- What do you want the robot to be able to find?: entry.540267406 -->
-          <textarea
-            id="searchTarget"
-            name="entry.540267406"
-            rows="3"
-            placeholder="e.g. cleaning cart for ward C, tote 18B, spill kit in bay 4"
-            required
-            class="w-full rounded-md border border-slate-300 px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-slate-900"
-          ></textarea>
-        </div>
-
-        <button
-          type="submit"
-          class="w-full mt-2 inline-flex items-center justify-center rounded-md border border-slate-900 bg-slate-900 px-3 py-2 text-sm font-medium text-white hover:bg-slate-800"
-        >
-          Submit
-        </button>
-      </form>
-    </div>
-  </div>
-
-  <!-- Success Page -->
-  <div
-    id="successMessage"
-    class="hidden min-h-screen flex-col items-center justify-center bg-slate-900 text-slate-50 text-center px-4"
-  >
-    <div class="max-w-md mx-auto">
-      <div class="text-5xl mb-4">✓</div>
-      <h2 class="text-2xl font-semibold mb-3">Thanks – you’re on the alpha list.</h2>
-      <p class="text-sm text-slate-300 mb-6">
-        We’ll reach out about fit, timelines, and next steps for integrating Seek on your robot.
-      </p>
-      <button
-        type="button"
-        class="px-4 py-2 border border-slate-100 rounded-md text-sm hover:bg-slate-100 hover:text-slate-900"
-        onclick="showHome()"
-      >
-        Back to home
-      </button>
-    </div>
-  </div>
-
   <!-- Main Website Wrapper -->
   <div id="mainWebsite" class="flex flex-col min-h-screen">
 
@@ -188,39 +33,30 @@
           <img src="seeksense-logo.png" alt="SeekSense logo" class="h-7 w-auto" />
           <a href="#top" class="font-semibold text-sm tracking-wide uppercase">SeekSense</a>
         </div>
+
         <nav class="hidden md:flex items-center gap-6 text-sm">
           <a href="#product" class="hover:underline">Product</a>
           <a href="#playground" class="hover:underline">Playground</a>
           <a href="#docs" class="hover:underline">Docs</a>
           <a href="#foundations" class="hover:underline">Foundations</a>
-          <a href="#pricing" class="hover:underline">Pricing</a>
           <a href="#use-cases" class="hover:underline">Use cases</a>
           <a href="#faq" class="hover:underline">FAQ</a>
+          <a href="#contact" class="hover:underline">Contact</a>
         </nav>
+
         <div class="flex items-center gap-3 text-sm">
-          <a
-            href="https://github.com"
-            target="_blank"
-            rel="noreferrer"
-            class="hidden sm:inline-block hover:underline"
-          >
+          <a href="https://github.com" target="_blank" rel="noreferrer" class="hidden sm:inline-block hover:underline">
             GitHub
           </a>
-          <a
-            href="https://x.com"
-            target="_blank"
-            rel="noreferrer"
-            class="hidden sm:inline-block hover:underline"
-          >
+          <a href="https://x.com" target="_blank" rel="noreferrer" class="hidden sm:inline-block hover:underline">
             X
           </a>
-          <button
-            type="button"
-            onclick="handleWaitlistClick()"
+          <a
+            href="mailto:m.swalihu@outlook.com?subject=SeekSense%20-%20Contact"
             class="px-3 py-1 border border-slate-300 rounded-md hover:bg-slate-100 text-sm"
           >
-            Apply to alpha
-          </button>
+            Contact us
+          </a>
         </div>
       </div>
     </header>
@@ -241,16 +77,15 @@
             </p>
             <p class="text-base leading-relaxed text-slate-700">
               No site-specific training runs. No custom detectors per deployment.
-              Just natural language in, and smart search behaviour out.
+              Just natural language in, and reliable search behaviour out.
             </p>
             <div class="flex flex-wrap gap-3">
-              <button
-                type="button"
-                onclick="handleWaitlistClick()"
+              <a
+                href="mailto:m.swalihu@outlook.com?subject=SeekSense%20-%20Pilot%20or%20Integration%20Discussion"
                 class="px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
               >
-                Apply to alpha
-              </button>
+                Contact us
+              </a>
               <a href="#docs" class="px-4 py-2 text-sm text-slate-700 hover:underline">
                 Explore the API
               </a>
@@ -299,7 +134,7 @@
         </div>
       </section>
 
-      <!-- Benefits strip (replaced "Built for robotics teams in ...") -->
+      <!-- Benefits strip -->
       <section class="py-8 border-b border-slate-200 bg-slate-50">
         <div class="max-w-6xl mx-auto px-4 flex flex-wrap items-center gap-4 text-sm text-slate-700">
           <span class="font-medium text-slate-900">Helps robotics teams deliver</span>
@@ -351,7 +186,6 @@
             – and let Seek handle the rest.
           </p>
 
-          <!-- Dynamic mode description -->
           <div class="mt-6 max-w-xl text-sm">
             <h3 id="modeTitle" class="font-medium text-slate-900 mb-1">Search</h3>
             <p id="modeDescription" class="text-slate-700">
@@ -414,7 +248,7 @@
               We provide the search behaviour and high-level goals.
             </p>
             <p class="text-sm text-slate-500">
-              Works with ROS 2, simulators, custom frameworks, and real robots.  
+              Works with ROS 2, simulators, custom frameworks, and real robots.
               No changes to your low-level control required.
             </p>
             <div class="flex gap-3 text-xs">
@@ -422,7 +256,16 @@
               <span class="px-3 py-1 border border-slate-200 rounded-full text-slate-500">C++</span>
               <span class="px-3 py-1 border border-slate-200 rounded-full text-slate-500">ROS 2</span>
             </div>
+            <div class="pt-2">
+              <a
+                href="mailto:m.swalihu@outlook.com?subject=SeekSense%20-%20API%20Integration"
+                class="inline-block px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
+              >
+                Contact us for access
+              </a>
+            </div>
           </div>
+
           <div class="border border-slate-200 rounded-xl p-4 bg-slate-900 text-slate-100">
             <div class="flex justify-between items-center mb-3 text-xs text-slate-300">
               <span>[ ROBOT ]</span>
@@ -491,7 +334,7 @@ if result.found:
             </h2>
             <p class="mt-3 text-base max-w-2xl text-slate-700">
               Seek is designed around the messy reality of real buildings:
-              Things move, people rearrange spaces, and robots arrive after everything has changed.
+              things move, people rearrange spaces, and robots arrive after everything has changed.
             </p>
           </div>
           <div class="grid gap-6 md:grid-cols-3 text-sm">
@@ -516,6 +359,46 @@ if result.found:
                 and why it chose the paths it did.
               </p>
             </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- Proof / Metrics (NEW - recommended add) -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="proof">
+        <div class="max-w-6xl mx-auto px-4 space-y-8">
+          <div>
+            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Proof //</p>
+            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
+              Evidence-driven pilots, not one-off demos
+            </h2>
+            <p class="mt-3 text-base max-w-2xl text-slate-700">
+              We focus on measurable outcomes in real environments — so stakeholders can approve rollout
+              based on evidence, not hype.
+            </p>
+          </div>
+
+          <div class="grid gap-6 md:grid-cols-3 text-sm">
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Time-to-find</h3>
+              <p class="text-slate-700">How quickly a robot can locate the target under normal site conditions.</p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Success rate</h3>
+              <p class="text-slate-700">How often the robot confirms the correct target and reaches a safe approach pose.</p>
+            </article>
+            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
+              <h3 class="font-medium text-slate-900">Intervention reduction</h3>
+              <p class="text-slate-700">How much manual searching and recovery work is removed from the workflow.</p>
+            </article>
+          </div>
+
+          <div class="pt-2">
+            <a
+              href="mailto:m.swalihu@outlook.com?subject=SeekSense%20-%20Pilot%20Metrics%20and%20Evaluation"
+              class="inline-block px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
+            >
+              Contact us to discuss a pilot
+            </a>
           </div>
         </div>
       </section>
@@ -558,132 +441,6 @@ if result.found:
               <p class="text-slate-700">
                 Save runs as artefacts you can replay, compare over time, or use as evidence for pilots and audits.
               </p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Pricing -->
-      <section class="py-16 border-b border-slate-200 bg-slate-50" id="pricing">
-        <div class="max-w-6xl mx-auto px-4 space-y-8">
-          <div>
-            <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Pricing //</p>
-            <h2 class="text-2xl md:text-3xl font-semibold mt-2">
-              Flexible access while we’re in alpha
-            </h2>
-            <p class="mt-3 text-base max-w-2xl text-slate-700">
-              Right now we’re working closely with a handful of teams.
-              No public pricing page, no self-serve yet — just robots, real spaces, and clear outcomes.
-            </p>
-          </div>
-
-          <div class="grid gap-6 md:grid-cols-4 text-sm">
-            <!-- Sandbox -->
-            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
-              <h3 class="font-medium text-slate-900">Sandbox</h3>
-              <p class="text-slate-600">For simulation and small robots.</p>
-              <p class="text-2xl font-semibold text-slate-900">Free</p>
-              <p class="text-slate-500 text-xs">per month (limited)</p>
-              <ul class="mt-3 space-y-1 text-slate-700">
-                <li>• Core API access</li>
-                <li>• Simulation-only usage</li>
-                <li>• Community support</li>
-              </ul>
-              <button
-                type="button"
-                onclick="handleWaitlistClick()"
-                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
-              >
-                Request access
-              </button>
-            </article>
-
-            <!-- Pilot -->
-            <article class="border border-slate-900 rounded-xl p-4 space-y-2 bg-slate-900 text-slate-50">
-              <h3 class="font-medium">Pilot</h3>
-              <p class="text-slate-200">For 1–2 robots in a live site.</p>
-              <p class="text-2xl font-semibold text-white">Custom</p>
-              <p class="text-slate-300 text-xs">per pilot</p>
-              <ul class="mt-3 space-y-1">
-                <li>• Up to 2 robots</li>
-                <li>• Single building</li>
-                <li>• Weekly check-ins</li>
-              </ul>
-              <button
-                type="button"
-                onclick="handleWaitlistClick()"
-                class="inline-block mt-4 px-3 py-1 border border-slate-50 rounded-md text-xs hover:bg-slate-50 hover:text-slate-900"
-              >
-                Apply to alpha
-              </button>
-            </article>
-
-            <!-- Team -->
-            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
-              <h3 class="font-medium text-slate-900">Team</h3>
-              <p class="text-slate-600">For robotics teams with fleets.</p>
-              <p class="text-2xl font-semibold text-slate-900">TBD</p>
-              <p class="text-slate-500 text-xs">post-alpha</p>
-              <ul class="mt-3 space-y-1 text-slate-700">
-                <li>• Multiple robots & sites</li>
-                <li>• Priority support</li>
-                <li>• Rollout planning</li>
-              </ul>
-              <a
-                href="mailto:m.swalihu@hotmail.com"
-                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
-              >
-                Talk to us
-              </a>
-            </article>
-
-            <!-- Enterprise -->
-            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-white">
-              <h3 class="font-medium text-slate-900">Enterprise</h3>
-              <p class="text-slate-600">For large fleets and custom constraints.</p>
-              <p class="text-2xl font-semibold text-slate-900">Contact</p>
-              <p class="text-slate-500 text-xs">for details</p>
-              <ul class="mt-3 space-y-1 text-slate-700">
-                <li>• Deep integrations</li>
-                <li>• Custom security & SLAs</li>
-                <li>• Joint pilots & metrics</li>
-              </ul>
-              <a
-                href="mailto:m.swalihu@hotmail.com"
-                class="inline-block mt-4 px-3 py-1 border border-slate-900 rounded-md text-xs hover:bg-slate-900 hover:text-white"
-              >
-                Contact sales
-              </a>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <!-- Testimonials -->
-      <section class="py-16 border-b border-slate-200 bg-white" id="testimonials">
-        <div class="max-w-6xl mx-auto px-4 space-y-6">
-          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Community //</p>
-          <h2 class="text-2xl md:text-3xl font-semibold">
-            Early partners on Seek
-          </h2>
-          <p class="text-base max-w-2xl text-slate-700">
-            How teams are turning “go find X” into a repeatable behaviour instead of a one-off demo.
-          </p>
-
-          <div class="grid gap-4 md:grid-cols-2 text-sm">
-            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
-              <p class="text-slate-800">
-                “We dropped Seek in front of our existing stack and were running language-driven recovery
-                runs in simulation in a weekend.”
-              </p>
-              <p class="text-slate-500 text-xs">Pilot partner – Warehouse robotics team</p>
-            </article>
-            <article class="border border-slate-200 rounded-xl p-4 space-y-2 bg-slate-50">
-              <p class="text-slate-800">
-                “Having a single, shared search behaviour across robots is a huge step up from custom scripts
-                per experiment.”
-              </p>
-              <p class="text-slate-500 text-xs">Research engineer – Robotics lab</p>
             </article>
           </div>
         </div>
@@ -733,35 +490,49 @@ if result.found:
         </div>
       </section>
 
-      <!-- Alpha programme section -->
-      <section class="py-16 border-b border-slate-200 bg-white" id="alpha">
+      <!-- Contact (REPLACES ALPHA) -->
+      <section class="py-16 border-b border-slate-200 bg-white" id="contact">
         <div class="max-w-6xl mx-auto px-4 space-y-6">
-          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Get started //</p>
+          <p class="text-xs uppercase tracking-[0.25em] text-slate-500">Contact //</p>
           <h2 class="text-2xl md:text-3xl font-semibold">
-            Alpha access for 5–10 teams
+            Talk to us about your robot and environment
           </h2>
           <p class="text-base max-w-2xl text-slate-700">
-            We’re working closely with a small group of partners to prove Seek in demanding environments.
-            If you already have a robot moving in a real building, we’d love to talk.
+            If you have a robot operating in a real building (or a simulator setup you want to validate),
+            we can discuss fit, integration requirements, and what a measurable proof-of-value looks like.
           </p>
-          <ul class="text-sm space-y-1 text-slate-700">
-            <li>• A mobile robot already operating in a real environment.</li>
-            <li>• Ability to stream camera frames and poses to an API.</li>
-            <li>• Working in logistics, healthcare, research, or similar indoor settings.</li>
-          </ul>
-          <div class="flex flex-wrap gap-3">
-            <button
-              type="button"
-              onclick="handleWaitlistClick()"
+
+          <div class="grid gap-4 md:grid-cols-3 text-sm">
+            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+              <p class="font-medium text-slate-900">What to include</p>
+              <p class="mt-2 text-slate-700">
+                Robot platform, sensors (RGB-D/LiDAR), your nav stack (ROS2/Nav2 etc),
+                and example “find-by-name” queries.
+              </p>
+            </div>
+            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+              <p class="font-medium text-slate-900">Typical outcomes</p>
+              <p class="mt-2 text-slate-700">
+                A repeatable search behaviour + logs/metrics to support internal approval for rollout.
+              </p>
+            </div>
+            <div class="border border-slate-200 rounded-xl p-4 bg-slate-50">
+              <p class="font-medium text-slate-900">Deployment options</p>
+              <p class="mt-2 text-slate-700">
+                Hosted API for early evaluations. On-prem/VPC discussions for larger deployments.
+              </p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-3 pt-2">
+            <a
+              href="mailto:m.swalihu@outlook.com?subject=SeekSense%20-%20Contact&body=Robot%20platform%3A%0ASensors%3A%0AStack%20(ROS2%2FNav2%2Fetc)%3A%0AEnvironment%3A%0AExample%20targets%20to%20find%3A"
               class="px-4 py-2 text-sm border border-slate-900 rounded-md hover:bg-slate-900 hover:text-white"
             >
-              Apply to alpha
-            </button>
-            <a
-              href="mailto:m.swalihu@hotmail.com"
-              class="px-4 py-2 text-sm text-slate-700 hover:underline"
-            >
               Email us
+            </a>
+            <a href="#docs" class="px-4 py-2 text-sm text-slate-700 hover:underline">
+              Review the API pattern
             </a>
           </div>
         </div>
@@ -777,59 +548,53 @@ if result.found:
           <p class="text-base max-w-2xl text-slate-700">
             Everything you need to know about how Seek fits into your robots and your stack.
           </p>
+
           <div class="space-y-4 text-sm max-w-3xl">
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                What is Seek?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">What is Seek?</summary>
               <p class="mt-2 text-slate-700">
                 Seek is a semantic navigation layer that lets robots find things in real buildings using
                 natural language, not just coordinates.
               </p>
             </details>
+
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                Do we need to train it for each site?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">Do we need to train it for each site?</summary>
               <p class="mt-2 text-slate-700">
                 No. Seek is designed to work across sites without per-environment training loops.
                 You may tune some parameters for your platform and use case, but not retrain from scratch.
               </p>
             </details>
+
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                Which robots are compatible?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">Which robots are compatible?</summary>
               <p class="mt-2 text-slate-700">
                 Any platform that can estimate its pose and stream a camera feed — AMRs, mobile manipulators,
                 quadrupeds, and indoor drones.
               </p>
             </details>
+
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                Does Seek replace our navigation stack?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">Does Seek replace our navigation stack?</summary>
               <p class="mt-2 text-slate-700">
                 No. You keep navigation, control, and safety. Seek provides high-level search behaviour
                 and goal suggestions that plug into your existing stack.
               </p>
             </details>
+
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                Can Seek run on-prem?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">Can Seek run on-prem?</summary>
               <p class="mt-2 text-slate-700">
-                During the alpha, Seek runs as a hosted API. For larger deployments, we’re open to discussing
-                on-prem or VPC setups with partners.
+                Early deployments run as a hosted API. For larger rollouts, we’re open to discussing on-prem
+                or VPC setups based on security and operational requirements.
               </p>
             </details>
+
             <details class="border border-slate-200 rounded-md p-3 bg-white">
-              <summary class="font-medium cursor-pointer text-slate-900">
-                How does pricing work?
-              </summary>
+              <summary class="font-medium cursor-pointer text-slate-900">How do we get started?</summary>
               <p class="mt-2 text-slate-700">
-                While in alpha, we work on a case-by-case basis. Longer term, pricing will be based on usage and
-                number of robots, similar to other infrastructure APIs.
+                Contact us with your robot platform, environment, and a few example targets you want the robot to find.
+                We’ll confirm integration fit, define success metrics, and propose a short proof-of-value plan.
               </p>
             </details>
           </div>
@@ -842,29 +607,31 @@ if result.found:
       <div class="max-w-6xl mx-auto px-4 grid gap-8 md:grid-cols-4 text-sm">
         <div class="space-y-2">
           <p class="font-semibold text-slate-900">SeekSense</p>
-          <p class="text-slate-600">
-            Semantic search for robots, from day one.
-          </p>
+          <p class="text-slate-600">Semantic search for robots, from day one.</p>
         </div>
+
         <div class="space-y-1">
           <p class="font-medium text-slate-900">Product</p>
           <a href="#product" class="text-slate-600 hover:underline">Overview</a><br />
           <a href="#docs" class="text-slate-600 hover:underline">API docs</a><br />
           <a href="#playground" class="text-slate-600 hover:underline">Playground</a>
         </div>
+
         <div class="space-y-1">
           <p class="font-medium text-slate-900">Resources</p>
           <a href="#foundations" class="text-slate-600 hover:underline">Foundations</a><br />
           <a href="#use-cases" class="text-slate-600 hover:underline">Use cases</a><br />
           <a href="#faq" class="text-slate-600 hover:underline">FAQ</a>
         </div>
+
         <div class="space-y-1">
           <p class="font-medium text-slate-900">Company</p>
-          <a href="mailto:m.swalihu@hotmail.com" class="text-slate-600 hover:underline">Contact</a><br />
+          <a href="#contact" class="text-slate-600 hover:underline">Contact</a><br />
           <a href="#terms" class="text-slate-600 hover:underline">Terms of Service</a><br />
           <a href="#privacy" class="text-slate-600 hover:underline">Privacy Policy</a>
         </div>
       </div>
+
       <div class="max-w-6xl mx-auto px-4 mt-6 flex flex-col md:flex-row items-center justify-between gap-3 text-xs text-slate-500">
         <p>© 2025 SeekSense</p>
         <div class="flex gap-3">
@@ -909,7 +676,6 @@ if result.found:
       pill.addEventListener('click', () => {
         const mode = pill.getAttribute('data-mode');
 
-        // Update classes
         modePills.forEach((p) => {
           p.classList.remove('bg-slate-900', 'text-white', 'border-slate-900');
           p.classList.add('bg-white', 'text-slate-600', 'border-slate-200');
@@ -917,109 +683,12 @@ if result.found:
         pill.classList.remove('bg-white', 'text-slate-600', 'border-slate-200');
         pill.classList.add('bg-slate-900', 'text-white', 'border-slate-900');
 
-        // Update text
         const content = modeContent[mode];
         if (content) {
           modeTitleEl.textContent = content.title;
           modeDescriptionEl.textContent = content.description;
         }
       });
-    });
-
-    // ALPHA / FORM LOGIC
-
-    // Check if user has already submitted the form
-    function hasSubmittedForm() {
-      return localStorage.getItem('seekSenseWaitlistSubmitted') === 'true';
-    }
-
-    function setFormSubmitted() {
-      localStorage.setItem('seekSenseWaitlistSubmitted', 'true');
-    }
-
-    function handleWaitlistClick() {
-      if (hasSubmittedForm()) {
-        showSuccess();
-      } else {
-        openWaitlistModal();
-      }
-    }
-
-    function openWaitlistModal() {
-      const modal = document.getElementById('waitlistModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
-
-    function closeWaitlistModal() {
-      const modal = document.getElementById('waitlistModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function showSuccess() {
-      document.getElementById('mainWebsite').style.display = 'none';
-      closeWaitlistModal();
-      const success = document.getElementById('successMessage');
-      success.classList.remove('hidden');
-      success.classList.add('flex');
-      window.scrollTo(0, 0);
-    }
-
-    function showHome() {
-      const success = document.getElementById('successMessage');
-      success.classList.add('hidden');
-      success.classList.remove('flex');
-      document.getElementById('mainWebsite').style.display = 'flex';
-      window.scrollTo(0, 0);
-    }
-
-    // Handle form submission to Google Forms
-    const waitlistForm = document.getElementById('waitlistForm');
-    if (waitlistForm) {
-      waitlistForm.addEventListener('submit', function(e) {
-        e.preventDefault();
-
-        // Create hidden iframe for submission
-        const iframe = document.createElement('iframe');
-        iframe.style.display = 'none';
-        iframe.name = 'hidden-iframe';
-        document.body.appendChild(iframe);
-
-        this.target = 'hidden-iframe';
-        this.action = 'https://docs.google.com/forms/d/e/1FAIpQLSeP9EEfbAa-5YU9fZ1zuXspEBylLUEwtLiNQyZ3LioGhrLmfA/formResponse';
-        this.method = 'POST';
-        this.submit();
-
-        setFormSubmitted();
-
-        setTimeout(() => {
-          showSuccess();
-          setTimeout(() => {
-            if (document.body.contains(iframe)) {
-              document.body.removeChild(iframe);
-            }
-          }, 1000);
-        }, 800);
-
-        setTimeout(() => {
-          this.reset();
-        }, 1500);
-      });
-    }
-
-    // Close modal when clicking on backdrop
-    document.getElementById('waitlistModal').addEventListener('click', function(e) {
-      if (e.target === this) {
-        closeWaitlistModal();
-      }
-    });
-
-    // Close modal with Escape key
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape') {
-        closeWaitlistModal();
-      }
     });
   </script>
 </body>
